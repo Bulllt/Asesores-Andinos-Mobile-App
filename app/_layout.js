@@ -8,6 +8,8 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { View } from "react-native";
+import { getStatusBarHeight } from "../constants/device";
 import "react-native-reanimated";
 import { useColorScheme } from "../hooks/useColorScheme";
 
@@ -31,11 +33,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="home/index" options={{ headerShown: false }} />
-      </Stack>
-      <StatusBar style="auto" />
+      <View style={{ flex: 1, paddingTop: getStatusBarHeight() }}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="login/index" options={{ headerShown: false }} />
+          <Stack.Screen name="home/index" options={{ headerShown: false }} />
+        </Stack>
+      </View>
+      <StatusBar style="dark" />
     </ThemeProvider>
   );
 }
