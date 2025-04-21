@@ -1,39 +1,15 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { PaperProvider } from "react-native-paper";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
-import { getStatusBarHeight } from "../constants/device";
-import "react-native-reanimated";
-import { useColorScheme } from "../hooks/useColorScheme";
-
-SplashScreen.preventAutoHideAsync();
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme;
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
+  const insets = useSafeAreaInsets();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <View style={{ flex: 1, paddingTop: getStatusBarHeight() }}>
+    <PaperProvider>
+      <View style={{ flex: 1, paddingTop: insets.top }}>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="login/index" options={{ headerShown: false }} />
@@ -41,6 +17,6 @@ export default function RootLayout() {
         </Stack>
       </View>
       <StatusBar style="dark" />
-    </ThemeProvider>
+    </PaperProvider>
   );
 }

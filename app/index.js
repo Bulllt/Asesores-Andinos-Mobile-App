@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "expo-router";
-import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, ImageBackground } from "react-native";
+import { Button } from "react-native-paper";
 
 import { style } from "./style";
 import LogoWhite from "../assets/images/logo-white.svg";
@@ -18,13 +19,17 @@ export default function welcomeScreen() {
         <View style={style.welcomeLogo}>
           <LogoWhite width="100%" height="100%" />
         </View>
+
         <Text style={style.welcomeTitle}>¡BIENVENIDO!</Text>
-        <TouchableOpacity
-          style={style.welcomeButton}
+
+        <Button
           onPress={() => router.push("login")}
+          style={style.welcomeButton}
+          labelStyle={style.welcomeButtonText}
+          icon="login"
         >
-          <Text style={style.welcomeButtonText}>ACCEDER</Text>
-        </TouchableOpacity>
+          ACCEDER
+        </Button>
       </View>
     </ImageBackground>
   );

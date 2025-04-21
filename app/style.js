@@ -29,8 +29,8 @@ export const style = StyleSheet.create({
 
   welcomeButton: {
     backgroundColor: colors.main,
-    paddingHorizontal: wp(25),
-    paddingVertical: hp(2.5),
+    paddingHorizontal: wp(20),
+    paddingVertical: hp(1.5),
     borderRadius: wp(8),
   },
   welcomeButtonText: {
