@@ -4,16 +4,16 @@ import { colors } from "../../constants/colors";
 
 export const style = StyleSheet.create({
   loginBackground: {
-    flex: 1,
     width: wp(100),
     height: hp(100),
+    position: "absolute",
   },
   loginCurvedBackground: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: -1,
+    pointerEvents: "none",
   },
   keyboardAvoidingView: {
     flex: 1,

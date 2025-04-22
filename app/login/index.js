@@ -94,11 +94,17 @@ export default function LoginScreen() {
   };
 
   return (
-    <ImageBackground
-      source={require("../../assets/images/background.webp")}
-      blurRadius={4}
-      style={style.loginBackground}
-    >
+    <View style={{ flex: 1 }}>
+      <ImageBackground
+        source={require("../../assets/images/background.webp")}
+        blurRadius={4}
+        style={style.loginBackground}
+      >
+        <View style={style.loginCurvedBackground}>
+          <CurvedTop color={"#F5F5F8"} width={100} height={65} depth={0.3} />
+        </View>
+      </ImageBackground>
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={style.keyboardAvoidingView}
@@ -109,10 +115,6 @@ export default function LoginScreen() {
         >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={style.loginContainer}>
-              <View style={style.loginCurvedBackground}>
-                <CurvedTop color={"#F5F5F8"} width={100} height={65} />
-              </View>
-
               <View style={style.loginLogo}>
                 <LogoWhite width="100%" height="100%" />
               </View>
@@ -219,6 +221,6 @@ export default function LoginScreen() {
       >
         {snackbarMessage}
       </Snackbar>
-    </ImageBackground>
+    </View>
   );
 }
