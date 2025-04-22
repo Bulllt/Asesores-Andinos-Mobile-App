@@ -3,7 +3,7 @@ import { View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { wp, hp } from "../constants/device";
 
-export default function CurvedTop({ color, width, height }) {
+export function CurvedTop({ color, width, height }) {
   const widthPercentage = wp(width);
   const heightPercentage = hp(height);
   const curveDepth = heightPercentage * 0.3;

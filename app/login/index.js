@@ -12,7 +12,7 @@ import {
   Platform,
 } from "react-native";
 import { Button, TextInput, Snackbar, Checkbox } from "react-native-paper";
-import CurvedTop from "../../components/curvedTop";
+import { CurvedTop } from "../../components/curvedTop";
 
 import { style } from "./style";
 import LogoWhite from "../../assets/images/logo-white.svg";
