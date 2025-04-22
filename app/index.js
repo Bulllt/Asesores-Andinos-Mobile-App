@@ -23,8 +23,10 @@ export default function welcomeScreen() {
         <Text style={style.welcomeTitle}>¡BIENVENIDO!</Text>
 
         <Button
+          mode="contained"
           onPress={() => router.push("login")}
           style={style.welcomeButton}
+          contentStyle={style.welcomeButtonContent}
           labelStyle={style.welcomeButtonText}
           icon="login"
         >

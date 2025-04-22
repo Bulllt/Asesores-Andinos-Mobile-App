@@ -28,10 +28,12 @@ export const style = StyleSheet.create({
   },
 
   welcomeButton: {
-    backgroundColor: colors.main,
-    paddingHorizontal: wp(20),
-    paddingVertical: hp(1.5),
-    borderRadius: wp(8),
+    height: hp(6),
+    width: wp(70),
+    justifyContent: "center",
+  },
+  welcomeButtonContent: {
+    height: "100%",
   },
   welcomeButtonText: {
     color: colors.white,
