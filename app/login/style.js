@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { wp, hp } from "../../constants/device";
 import { colors } from "../../constants/colors";
 
-export const style = StyleSheet.create({
+export default style = StyleSheet.create({
   loginBackground: {
     width: wp(100),
     height: hp(100),

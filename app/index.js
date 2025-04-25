@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { View, Text, ImageBackground } from "react-native";
 import { Button } from "react-native-paper";
 
-import { style } from "./style";
+import style from "./style";
 import LogoWhite from "../assets/images/logo-white.svg";
 
 export default function welcomeScreen() {

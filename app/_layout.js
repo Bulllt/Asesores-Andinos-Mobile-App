@@ -27,6 +27,7 @@ export default function RootLayout() {
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="login/index" options={{ headerShown: false }} />
           <Stack.Screen name="home/index" options={{ headerShown: false }} />
+          <Stack.Screen name="items/index" options={{ headerShown: false }} />
         </Stack>
       </View>
       <StatusBar style="dark" />

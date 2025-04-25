@@ -14,7 +14,7 @@ import {
 import { Button, TextInput, Snackbar, Checkbox } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
 
-import { style } from "./style";
+import style from "./style";
 import LogoWhite from "../../assets/images/logo-white.svg";
 
 export default function LoginScreen() {
