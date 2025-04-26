@@ -1,6 +1,6 @@
 import { PaperProvider, MD3LightTheme } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
@@ -12,17 +12,19 @@ const theme = {
     primary: colors.main,
     onSurfaceVariant: colors.placeholder,
     background: colors.white,
-    error: colors.red,
+    error: colors.redError,
   },
   roundness: 10,
 };
 
 export default function RootLayout() {
   const insets = useSafeAreaInsets();
+  const topInset = Math.min(insets.top, Platform.OS === 'ios' ? 1 : insets.top);
 
   return (
     <PaperProvider theme={theme}>
-      <View style={{ flex: 1, paddingTop: insets.top }}>
+      <View style={{ flex: 1, paddingTop: topInset}}>
+      
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="login/index" options={{ headerShown: false }} />

@@ -52,7 +52,7 @@ export default style = StyleSheet.create({
   table: {
     width: wp(90),
     backgroundColor: "white",
-    marginBottom: hp(5),
+    marginBottom: hp(2),
     borderRadius: wp(4),
     elevation: 3,
     shadowColor: "#000",

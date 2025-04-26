@@ -45,7 +45,7 @@ export default function ItemsScreen() {
           style={style.itemsBackground}
         >
           <View style={style.itemsCurvedBackground}>
-            <CurvedTop color={"#F5F5F8"} width={100} height={80} depth={0.1} />
+            <CurvedTop color={"#F5F5F8"} width={100} height={78} depth={0.1} />
           </View>
         </ImageBackground>
 
@@ -74,13 +74,13 @@ export default function ItemsScreen() {
                 <View style={style.actionsContainer}>
                   <IconButton
                     icon="file-pdf-box"
-                    iconColor={colors.black}
+                    iconColor={colors.red}
                     size={wp(6)}
                     onPress={() => {}}
                   />
                   <IconButton
                     icon="file-excel"
-                    iconColor={colors.black}
+                    iconColor={colors.green}
                     size={wp(6)}
                     onPress={() => {}}
                   />

@@ -113,6 +113,6 @@ export default style = StyleSheet.create({
     backgroundColor: colors.main,
   },
   snackbarError: {
-    backgroundColor: colors.red,
+    backgroundColor: colors.redError,
   },
 });
