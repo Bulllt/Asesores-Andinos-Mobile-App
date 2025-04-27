@@ -25,7 +25,6 @@ export default style = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: hp(3),
   },
   titleText: {
     fontSize: wp(8),

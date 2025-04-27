@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { Appbar, Searchbar, useTheme } from "react-native-paper";
+import { Appbar, Searchbar } from "react-native-paper";
+import { MenuModal } from "./menuModal";
 
 import LogoWhite from "../assets/images/logo-white.svg";
 import { colors } from "../constants/colors";
 import { wp, hp } from "../constants/device";
 
-export function Navbar({ onSearchChange, searchQuery }) {
-  const theme = useTheme();
+export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
 
   return (
     <View style={styles.container}>
-      <Appbar.Header
-        style={styles.appBar}
-        theme={{ colors: { primary: colors.main } }}
-      >
+      <Appbar.Header style={styles.appBar}>
         <View style={styles.logoContainer}>
           <LogoWhite width="100%" height="100%" />
         </View>
@@ -35,8 +37,8 @@ export function Navbar({ onSearchChange, searchQuery }) {
             style={styles.icon}
           />
           <Appbar.Action
-            icon="menu"
-            onPress={() => console.log("Menu pressed")}
+            icon={menuVisible ? "close" : "menu"}
+            onPress={toggleMenu}
             color={colors.white}
             size={wp(6)}
             style={styles.icon}
@@ -55,6 +57,12 @@ export function Navbar({ onSearchChange, searchQuery }) {
           inputStyle={styles.searchInput}
         />
       </View>
+
+      <MenuModal
+        visible={menuVisible}
+        onDismiss={toggleMenu}
+        activeRoute={activeRoute}
+      />
     </View>
   );
 }
@@ -62,7 +70,7 @@ export function Navbar({ onSearchChange, searchQuery }) {
 const styles = StyleSheet.create({
   container: {
     width: wp(100),
-    paddingBottom: hp(1.5),
+    paddingBottom: hp(6),
   },
   appBar: {
     backgroundColor: "transparent",

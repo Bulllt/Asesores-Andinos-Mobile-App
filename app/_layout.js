@@ -19,12 +19,11 @@ const theme = {
 
 export default function RootLayout() {
   const insets = useSafeAreaInsets();
-  const topInset = Math.min(insets.top, Platform.OS === 'ios' ? 1 : insets.top);
+  const topInset = Math.min(insets.top, Platform.OS === "ios" ? 1 : insets.top);
 
   return (
     <PaperProvider theme={theme}>
-      <View style={{ flex: 1, paddingTop: topInset}}>
-      
+      <View style={{ flex: 1, paddingTop: topInset }}>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="login/index" options={{ headerShown: false }} />

@@ -49,7 +49,11 @@ export default function ItemsScreen() {
           </View>
         </ImageBackground>
 
-        <Navbar onSearchChange={setSearchQuery} searchQuery={searchQuery} />
+        <Navbar
+          onSearchChange={setSearchQuery}
+          searchQuery={searchQuery}
+          activeRoute={"items"}
+        />
 
         <View style={style.titleContainer}>
           <IconButton

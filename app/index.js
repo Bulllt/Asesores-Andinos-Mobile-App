@@ -24,7 +24,7 @@ export default function welcomeScreen() {
 
         <Button
           mode="contained"
-          onPress={() => router.push("/login")}
+          onPress={() => router.push("items")}
           style={style.welcomeButton}
           contentStyle={style.welcomeButtonContent}
           labelStyle={style.welcomeButtonText}
