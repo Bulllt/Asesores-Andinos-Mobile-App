@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, Platform } from "react-native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { UserProvider } from "../hooks/userContext";
 
 import { colors } from "../constants/colors";
 const theme = {
@@ -23,15 +24,17 @@ export default function RootLayout() {
 
   return (
     <PaperProvider theme={theme}>
-      <View style={{ flex: 1, paddingTop: topInset }}>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="login/index" options={{ headerShown: false }} />
-          <Stack.Screen name="home/index" options={{ headerShown: false }} />
-          <Stack.Screen name="items/index" options={{ headerShown: false }} />
-        </Stack>
-      </View>
-      <StatusBar style="dark" />
+      <UserProvider>
+        <View style={{ flex: 1, paddingTop: topInset }}>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="login/index" options={{ headerShown: false }} />
+            <Stack.Screen name="home/index" options={{ headerShown: false }} />
+            <Stack.Screen name="items/index" options={{ headerShown: false }} />
+          </Stack>
+        </View>
+        <StatusBar style="dark" />
+      </UserProvider>
     </PaperProvider>
   );
 }

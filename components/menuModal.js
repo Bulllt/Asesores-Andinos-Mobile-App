@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Platform} from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import { useRouter } from "expo-router";
 import {
   Modal,

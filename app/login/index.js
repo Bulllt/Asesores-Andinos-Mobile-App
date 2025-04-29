@@ -13,12 +13,14 @@ import {
 } from "react-native";
 import { Button, TextInput, Snackbar, Checkbox } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
+import { useUser } from "../../hooks/userContext";
 
 import style from "./style";
 import LogoWhite from "../../assets/images/logo-white.svg";
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { login } = useUser();
   const [rut, setRut] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -87,10 +89,14 @@ export default function LoginScreen() {
       return;
     }
 
-    setLoading(false);
     setSnackbarMessage("Inicio de sesión exitoso");
     setSnackbarType("success");
     setSnackbarVisible(true);
+    login({ name: "John", rut });
+    setTimeout(() => {
+      setLoading(false);
+      router.push("home");
+    }, 1000);
   };
 
   return (

@@ -6,7 +6,7 @@ import { Button } from "react-native-paper";
 import style from "./style";
 import LogoWhite from "../assets/images/logo-white.svg";
 
-export default function welcomeScreen() {
+export default function WelcomeScreen() {
   const router = useRouter();
 
   return (
@@ -24,7 +24,7 @@ export default function welcomeScreen() {
 
         <Button
           mode="contained"
-          onPress={() => router.push("items")}
+          onPress={() => router.push("login")}
           style={style.welcomeButton}
           contentStyle={style.welcomeButtonContent}
           labelStyle={style.welcomeButtonText}
