@@ -1,11 +1,10 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { wp, hp } from "../../constants/device";
 import { colors } from "../../constants/colors";
 
-const IOS = Platform.OS === "ios";
 export default style = StyleSheet.create({
   homeBackground: {
-    width: IOS ? wp(50) : wp(100),
+    width: wp(100),
     height: hp(100),
     position: "absolute",
   },

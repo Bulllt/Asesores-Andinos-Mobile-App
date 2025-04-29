@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import { View, Text, ImageBackground } from "react-native";
+import { View, Text, ImageBackground, Platform } from "react-native";
 import { IconButton } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
 import { Navbar } from "../../components/navbar";
@@ -9,6 +9,8 @@ import style from "./style";
 
 export default function ItemsScreen() {
   const router = useRouter();
+  const IOS = Platform.OS === "ios"; 
+  const height = IOS ? 86 : 90; 
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -20,7 +22,7 @@ export default function ItemsScreen() {
         style={style.homeBackground}
       >
         <View style={style.homeCurvedBackground}>
-          <CurvedTop color={"#F5F5F8"} width={100} height={90} depth={0.1} />
+          <CurvedTop color={"#F5F5F8"} width={100} height={height} depth={0.1} />
         </View>
       </ImageBackground>
 

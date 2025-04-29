@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
+import { View, StyleSheet, Platform, TouchableWithoutFeedback } from "react-native";
 import { Appbar, Searchbar } from "react-native-paper";
 import { MenuModal } from "./menuModal";
 
@@ -10,6 +11,7 @@ import { wp, hp } from "../constants/device";
 export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const isHomeScreen = activeRoute === "home";
+  const router = useRouter();
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -18,9 +20,11 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.appBar}>
+        <TouchableWithoutFeedback onPress={() => router.push("home")}>
         <View style={styles.logoContainer}>
           <LogoWhite width="100%" height="100%" />
         </View>
+        </TouchableWithoutFeedback>
 
         <View style={styles.iconsContainer}>
           <Appbar.Action
@@ -70,10 +74,11 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
   );
 }
 
+const IOS = Platform.OS === "ios";
 const styles = StyleSheet.create({
   container: {
     width: wp(100),
-    paddingBottom: hp(6),
+    paddingBottom: IOS ? hp(3) : hp(6),
   },
   appBar: {
     backgroundColor: "transparent",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform} from "react-native";
 import { useRouter } from "expo-router";
 import {
   Modal,
@@ -208,11 +208,12 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
   );
 }
 
+const IOS = Platform.OS === "ios";
 const styles = StyleSheet.create({
   modalContainer: {
     position: "absolute",
     backgroundColor: "transparent",
-    bottom: hp(3),
+    bottom: IOS ? hp(0) : hp(3),
     left: 0,
     right: 0,
     alignItems: "center",
