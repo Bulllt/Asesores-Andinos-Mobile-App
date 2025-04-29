@@ -51,7 +51,7 @@ export default style = StyleSheet.create({
   tableContainer: {
     marginHorizontal: wp(5),
     marginBottom: hp(2),
-    height: hp(48),
+    flex: 1,
     borderRadius: wp(3),
     overflow: "hidden",
     elevation: 3,

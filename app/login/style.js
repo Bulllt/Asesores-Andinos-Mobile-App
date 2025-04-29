@@ -60,6 +60,7 @@ export default style = StyleSheet.create({
 
   formInput: {
     marginBottom: hp(3),
+    textAlign: "auto",
   },
   formError: {
     color: colors.red,

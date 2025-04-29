@@ -98,99 +98,101 @@ export default function ItemsScreen() {
 
                 <View style={style.tableContainer}>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    <DataTable style={style.table}>
-                      <DataTable.Header>
-                        <DataTable.Title
-                          style={style.headerCell1}
-                          numberOfLines={2}
-                        >
-                          N°
-                        </DataTable.Title>
-
-                        <DataTable.Title
-                          style={style.headerCell}
-                          numberOfLines={2}
-                        >
-                          Nombre del producto
-                        </DataTable.Title>
-
-                        <DataTable.Title
-                          style={style.headerCell}
-                          numberOfLines={2}
-                        >
-                          ID del producto
-                        </DataTable.Title>
-
-                        <DataTable.Title
-                          style={style.headerCell}
-                          numberOfLines={2}
-                        >
-                          Categoría
-                        </DataTable.Title>
-
-                        <DataTable.Title
-                          style={style.headerCell}
-                          numberOfLines={2}
-                        >
-                          Marca
-                        </DataTable.Title>
-
-                        <DataTable.Title
-                          style={style.headerCell}
-                          numberOfLines={2}
-                        >
-                          Proveedor
-                        </DataTable.Title>
-
-                        <DataTable.Title
-                          style={style.headerCell}
-                          numberOfLines={2}
-                        >
-                          Descripción
-                        </DataTable.Title>
-                      </DataTable.Header>
-
-                      {filteredProducts
-                        .slice(from, to)
-                        .map((product, index, array) => (
-                          <DataTable.Row
-                            key={product.id}
-                            style={
-                              index === array.length - 1
-                                ? style.lastRow
-                                : style.row
-                            }
+                    <TouchableWithoutFeedback>
+                      <DataTable style={style.table}>
+                        <DataTable.Header>
+                          <DataTable.Title
+                            style={style.headerCell1}
+                            numberOfLines={2}
                           >
-                            <DataTable.Cell style={style.cell1}>
-                              {from + index + 1}
-                            </DataTable.Cell>
+                            N°
+                          </DataTable.Title>
 
-                            <DataTable.Cell style={style.cell}>
-                              {product.name}
-                            </DataTable.Cell>
+                          <DataTable.Title
+                            style={style.headerCell}
+                            numberOfLines={2}
+                          >
+                            Nombre del producto
+                          </DataTable.Title>
 
-                            <DataTable.Cell style={style.cell}>
-                              {product.id}
-                            </DataTable.Cell>
+                          <DataTable.Title
+                            style={style.headerCell}
+                            numberOfLines={2}
+                          >
+                            ID del producto
+                          </DataTable.Title>
 
-                            <DataTable.Cell style={style.cell}>
-                              {product.category}
-                            </DataTable.Cell>
+                          <DataTable.Title
+                            style={style.headerCell}
+                            numberOfLines={2}
+                          >
+                            Categoría
+                          </DataTable.Title>
 
-                            <DataTable.Cell style={style.cell}>
-                              {product.brand}
-                            </DataTable.Cell>
+                          <DataTable.Title
+                            style={style.headerCell}
+                            numberOfLines={2}
+                          >
+                            Marca
+                          </DataTable.Title>
 
-                            <DataTable.Cell style={style.cell}>
-                              {product.supplier}
-                            </DataTable.Cell>
+                          <DataTable.Title
+                            style={style.headerCell}
+                            numberOfLines={2}
+                          >
+                            Proveedor
+                          </DataTable.Title>
 
-                            <DataTable.Cell style={style.cell}>
-                              {product.description}
-                            </DataTable.Cell>
-                          </DataTable.Row>
-                        ))}
-                    </DataTable>
+                          <DataTable.Title
+                            style={style.headerCell}
+                            numberOfLines={2}
+                          >
+                            Descripción
+                          </DataTable.Title>
+                        </DataTable.Header>
+
+                        {filteredProducts
+                          .slice(from, to)
+                          .map((product, index, array) => (
+                            <DataTable.Row
+                              key={product.id}
+                              style={
+                                index === array.length - 1
+                                  ? style.lastRow
+                                  : style.row
+                              }
+                            >
+                              <DataTable.Cell style={style.cell1}>
+                                {from + index + 1}
+                              </DataTable.Cell>
+
+                              <DataTable.Cell style={style.cell}>
+                                {product.name}
+                              </DataTable.Cell>
+
+                              <DataTable.Cell style={style.cell}>
+                                {product.id}
+                              </DataTable.Cell>
+
+                              <DataTable.Cell style={style.cell}>
+                                {product.category}
+                              </DataTable.Cell>
+
+                              <DataTable.Cell style={style.cell}>
+                                {product.brand}
+                              </DataTable.Cell>
+
+                              <DataTable.Cell style={style.cell}>
+                                {product.supplier}
+                              </DataTable.Cell>
+
+                              <DataTable.Cell style={style.cell}>
+                                {product.description}
+                              </DataTable.Cell>
+                            </DataTable.Row>
+                          ))}
+                      </DataTable>
+                    </TouchableWithoutFeedback>
                   </ScrollView>
                 </View>
 
