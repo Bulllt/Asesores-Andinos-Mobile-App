@@ -48,16 +48,22 @@ export default style = StyleSheet.create({
     marginBottom: hp(1),
   },
 
-  table: {
-    width: wp(90),
-    backgroundColor: "white",
+  tableContainer: {
+    marginHorizontal: wp(5),
     marginBottom: hp(2),
-    borderRadius: wp(4),
+    height: hp(48),
+    borderRadius: wp(3),
+    overflow: "hidden",
     elevation: 3,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+  },
+  table: {
+    width: wp(130),
+    backgroundColor: "white",
+    borderRadius: wp(3),
   },
   row: {
     borderBottomWidth: 1,

@@ -9,6 +9,7 @@ import { wp, hp } from "../constants/device";
 
 export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
   const [menuVisible, setMenuVisible] = useState(false);
+  const isHomeScreen = activeRoute === "home";
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -46,17 +47,19 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
         </View>
       </Appbar.Header>
 
-      <View style={styles.searchContainer}>
-        <Searchbar
-          placeholder="¿Qué estás buscando?"
-          placeholderTextColor={colors.placeholder}
-          iconColor={colors.placeholder}
-          onChangeText={onSearchChange}
-          value={searchQuery}
-          style={styles.searchBar}
-          inputStyle={styles.searchInput}
-        />
-      </View>
+      {!isHomeScreen && (
+        <View style={styles.searchContainer}>
+          <Searchbar
+            placeholder="¿Qué estás buscando?"
+            placeholderTextColor={colors.placeholder}
+            iconColor={colors.placeholder}
+            onChangeText={onSearchChange}
+            value={searchQuery}
+            style={styles.searchBar}
+            inputStyle={styles.searchInput}
+          />
+        </View>
+      )}
 
       <MenuModal
         visible={menuVisible}
