@@ -2,12 +2,14 @@ import React from "react";
 import { useRouter } from "expo-router";
 import { View, Text, ImageBackground } from "react-native";
 import { Button } from "react-native-paper";
+import { UseUser } from "../hooks/userContext";
 
 import style from "./style";
 import LogoWhite from "../assets/images/logo-white.svg";
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { user } = UseUser();
 
   return (
     <ImageBackground
@@ -24,13 +26,13 @@ export default function WelcomeScreen() {
 
         <Button
           mode="contained"
-          onPress={() => router.push("login")}
+          onPress={() => router.push(user ? "home" : "login")}
           style={style.welcomeButton}
           contentStyle={style.welcomeButtonContent}
           labelStyle={style.welcomeButtonText}
-          icon="login"
+          icon={user ? "home" : "login"}
         >
-          ACCEDER
+          {user ? "INICIO" : "ACCEDER"}
         </Button>
       </View>
     </ImageBackground>

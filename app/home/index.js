@@ -4,13 +4,13 @@ import { View, Text, ImageBackground, Platform } from "react-native";
 import { IconButton } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
 import { Navbar } from "../../components/navbar";
-import { useUser } from "../../hooks/userContext";
+import { UseUser } from "../../hooks/userContext";
 
 import style from "./style";
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { user } = useUser();
+  const { user } = UseUser();
   const IOS = Platform.OS === "ios";
   const height = IOS ? 86 : 90;
 
@@ -45,6 +45,7 @@ export default function HomeScreen() {
 
       <View style={style.homeContainer}>
         <Text>Welcome {user?.rut}</Text>
+        <Text>Welcome {user?.full_name}</Text>
       </View>
     </View>
   );

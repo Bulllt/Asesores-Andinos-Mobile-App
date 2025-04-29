@@ -13,14 +13,15 @@ import {
 } from "react-native";
 import { Button, TextInput, Snackbar, Checkbox } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
-import { useUser } from "../../hooks/userContext";
+import { UseUser } from "../../hooks/userContext";
+import { LoginUser } from "../../constants/api";
 
 import style from "./style";
 import LogoWhite from "../../assets/images/logo-white.svg";
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { login } = useUser();
+  const { login } = UseUser();
   const [rut, setRut] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -64,11 +65,11 @@ export default function LoginScreen() {
 
   const validatePassword = (password) => {
     if (!password) return "Contraseña es requerida";
-    if (password.length < 8) return "Mínimo 8 caracteres";
+    if (password.length < 4) return "Mínimo 4 caracteres";
     return "";
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setLoading(true);
     Keyboard.dismiss();
     setSubmitted(true);
@@ -89,14 +90,33 @@ export default function LoginScreen() {
       return;
     }
 
-    setSnackbarMessage("Inicio de sesión exitoso");
-    setSnackbarType("success");
-    setSnackbarVisible(true);
-    login({ name: "John", rut });
-    setTimeout(() => {
+    try {
+      const response = await LoginUser({
+        rut,
+        password,
+      });
+
+      login({
+        full_name: response.user.full_name,
+        rut: response.user.rut,
+        groups: response.user.groups,
+      });
+
+      setSnackbarMessage("Inicio de sesión exitoso");
+      setSnackbarType("success");
+      setSnackbarVisible(true);
+
+      setTimeout(() => {
+        setLoading(false);
+        router.push("home");
+      }, 1000);
+    } catch (error) {
+      console.log(error.message);
       setLoading(false);
-      router.push("home");
-    }, 1000);
+      setSnackbarMessage("Error en el inicio de sesión");
+      setSnackbarType("error");
+      setSnackbarVisible(true);
+    }
   };
 
   return (
