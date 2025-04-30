@@ -19,6 +19,7 @@ export function UserProvider({ children }) {
     async function loadUser() {
       try {
         const token = await AsyncStorage.getItem("token");
+        console.log(token);
         if (!token) {
           await AsyncStorage.removeItem("user");
           setIsLoading(false);
@@ -68,8 +69,8 @@ export function UserProvider({ children }) {
     }
   };
   useEffect(() => {
-    HttpInterceptor(router, logout);
-  }, [router, logout]);
+    HttpInterceptor(router);
+  }, [router]);
 
   const value = {
     user,

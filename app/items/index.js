@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import {
   View,
@@ -10,31 +10,92 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { Button, DataTable, IconButton } from "react-native-paper";
+import {
+  Button,
+  DataTable,
+  IconButton,
+  ActivityIndicator,
+} from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
 import { Navbar } from "../../components/navbar";
 
 import style from "./style";
 import { colors } from "../../constants/colors";
 import { wp } from "../../constants/device";
-import { mockProducts } from "./mockData";
+import { GetItems } from "../../constants/api";
 
 export default function ItemsScreen() {
   const router = useRouter();
-
+  const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  const filteredProducts = mockProducts.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.id.toLowerCase().includes(searchQuery.toLowerCase())
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        setLoading(true);
+        const data = await GetItems();
+        setItems(data);
+      } catch (error) {
+        console.error(error.message || "Error loading items");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchItems();
+  }, []);
+  const filteredItems = items.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.item_id.toString().toLowerCase().includes(searchQuery)
   );
 
-  const itemsPerPage = 7;
+  const itemsPerPage = 8;
   const from = page * itemsPerPage;
-  const to = Math.min((page + 1) * itemsPerPage, filteredProducts.length);
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const to = Math.min((page + 1) * itemsPerPage, filteredItems.length);
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1 }}>
+        <ImageBackground
+          source={require("../../assets/images/background.webp")}
+          blurRadius={4}
+          style={style.itemsBackground}
+        >
+          <View style={style.itemsCurvedBackground}>
+            <CurvedTop color={"#F5F5F8"} width={100} height={79} depth={0.1} />
+          </View>
+        </ImageBackground>
+
+        <Navbar
+          onSearchChange={setSearchQuery}
+          searchQuery={searchQuery}
+          activeRoute={"items"}
+        />
+
+        <View style={style.titleContainer}>
+          <IconButton
+            icon="arrow-left"
+            iconColor={colors.black}
+            size={wp(8)}
+            onPress={() => router.back()}
+          />
+          <Text style={style.titleText}>Lista de Productos</Text>
+        </View>
+
+        <View style={style.itemsLoad}>
+          <ActivityIndicator
+            animating={true}
+            color={colors.main}
+            size={wp(20)}
+          />
+        </View>
+      </View>
+    );
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -101,61 +162,32 @@ export default function ItemsScreen() {
                     <TouchableWithoutFeedback>
                       <DataTable style={style.table}>
                         <DataTable.Header>
-                          <DataTable.Title
-                            style={style.headerCell1}
-                            numberOfLines={2}
-                          >
-                            N°
+                          <DataTable.Title style={style.headerCell1}>
+                            ID
                           </DataTable.Title>
 
-                          <DataTable.Title
-                            style={style.headerCell}
-                            numberOfLines={2}
-                          >
+                          <DataTable.Title style={style.headerCell}>
                             Nombre del producto
                           </DataTable.Title>
 
-                          <DataTable.Title
-                            style={style.headerCell}
-                            numberOfLines={2}
-                          >
-                            ID del producto
-                          </DataTable.Title>
-
-                          <DataTable.Title
-                            style={style.headerCell}
-                            numberOfLines={2}
-                          >
+                          <DataTable.Title style={style.headerCell}>
                             Categoría
                           </DataTable.Title>
 
-                          <DataTable.Title
-                            style={style.headerCell}
-                            numberOfLines={2}
-                          >
-                            Marca
+                          <DataTable.Title style={style.headerCell}>
+                            Descripcion
                           </DataTable.Title>
 
-                          <DataTable.Title
-                            style={style.headerCell}
-                            numberOfLines={2}
-                          >
-                            Proveedor
-                          </DataTable.Title>
-
-                          <DataTable.Title
-                            style={style.headerCell}
-                            numberOfLines={2}
-                          >
-                            Descripción
+                          <DataTable.Title style={style.headerCell}>
+                            Detalles
                           </DataTable.Title>
                         </DataTable.Header>
 
-                        {filteredProducts
+                        {filteredItems
                           .slice(from, to)
-                          .map((product, index, array) => (
+                          .map((item, index, array) => (
                             <DataTable.Row
-                              key={product.id}
+                              key={item.item_id}
                               style={
                                 index === array.length - 1
                                   ? style.lastRow
@@ -163,31 +195,23 @@ export default function ItemsScreen() {
                               }
                             >
                               <DataTable.Cell style={style.cell1}>
-                                {from + index + 1}
+                                {item.item_id}
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {product.name}
+                                {item.name}
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {product.id}
+                                {item.category.join(", ")}
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {product.category}
+                                {item.description}
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {product.brand}
-                              </DataTable.Cell>
-
-                              <DataTable.Cell style={style.cell}>
-                                {product.supplier}
-                              </DataTable.Cell>
-
-                              <DataTable.Cell style={style.cell}>
-                                {product.description}
+                                {item.details}
                               </DataTable.Cell>
                             </DataTable.Row>
                           ))}

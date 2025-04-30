@@ -39,19 +39,21 @@ export default style = StyleSheet.create({
     alignItems: "center",
     paddingBottom: hp(4),
   },
+  itemsLoad: {
+    marginTop: hp(20),
+  },
 
   actionsContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
     width: wp(100),
     paddingRight: wp(4),
-    marginBottom: hp(1),
+    marginBottom: hp(0.5),
   },
 
   tableContainer: {
     marginHorizontal: wp(5),
-    marginBottom: hp(2),
-    flex: 1,
+    marginBottom: hp(1),
     borderRadius: wp(3),
     overflow: "hidden",
     elevation: 3,
@@ -59,6 +61,8 @@ export default style = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    flex: 1,
+    flexGrow: 0,
   },
   table: {
     width: wp(130),
