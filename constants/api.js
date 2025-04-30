@@ -13,11 +13,25 @@ api.interceptors.request.use(async (config) => {
   return config;
 });
 
+let routerRef = null;
+let logoutFunction = null;
+export function HttpInterceptor(router, logout) {
+  routerRef = router;
+  logoutFunction = logout;
+}
+
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response?.status === 401) {
       await AsyncStorage.multiRemove(["token", "user"]);
+      if (typeof logoutFunction === "function") {
+        await logoutFunction();
+      }
+
+      if (routerRef) {
+        routerRef.push("/");
+      }
     }
     return Promise.reject(error);
   }

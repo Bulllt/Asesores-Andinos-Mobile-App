@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import { View, Text, ImageBackground, Platform } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import { IconButton } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
 import { Navbar } from "../../components/navbar";
@@ -54,7 +60,10 @@ export default function HomeScreen() {
       <View style={style.homeContainer}>
         <Text>RUT: {user?.rut}</Text>
         <Text>NAME: {user?.full_name}</Text>
-        <Text onPress={handleLogout}>LOGOUT</Text>
+
+        <TouchableOpacity onPress={handleLogout}>
+          <Text>LOGOUT</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

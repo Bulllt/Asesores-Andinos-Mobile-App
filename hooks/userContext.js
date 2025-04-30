@@ -1,12 +1,19 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { GetUser, LoginUser, LogoutUser } from "../constants/api";
+import {
+  GetUser,
+  LoginUser,
+  LogoutUser,
+  HttpInterceptor,
+} from "../constants/api";
+import { useRouter } from "expo-router";
 
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function loadUser() {
@@ -60,6 +67,9 @@ export function UserProvider({ children }) {
       setUser(null);
     }
   };
+  useEffect(() => {
+    HttpInterceptor(router, logout);
+  }, [router, logout]);
 
   const value = {
     user,
