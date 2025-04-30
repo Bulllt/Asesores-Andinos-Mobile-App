@@ -10,11 +10,19 @@ import style from "./style";
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { user } = UseUser();
+  const { user, logout } = UseUser();
   const IOS = Platform.OS === "ios";
   const height = IOS ? 86 : 90;
 
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -44,8 +52,9 @@ export default function HomeScreen() {
       </View>
 
       <View style={style.homeContainer}>
-        <Text>Welcome {user?.rut}</Text>
-        <Text>Welcome {user?.full_name}</Text>
+        <Text>RUT: {user?.rut}</Text>
+        <Text>NAME: {user?.full_name}</Text>
+        <Text onPress={handleLogout}>LOGOUT</Text>
       </View>
     </View>
   );

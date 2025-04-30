@@ -14,7 +14,6 @@ import {
 import { Button, TextInput, Snackbar, Checkbox } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
 import { UseUser } from "../../hooks/userContext";
-import { LoginUser } from "../../constants/api";
 
 import style from "./style";
 import LogoWhite from "../../assets/images/logo-white.svg";
@@ -37,10 +36,28 @@ export default function LoginScreen() {
     password: "",
   });
 
-  const validateRut = (rut) => {
-    if (!rut) return "RUT es requerido";
+  const formatRutInput = (input) => {
+    const cleanRut = input.replace(/[^0-9kK]/g, "").toUpperCase();
+    if (cleanRut.length <= 1) return cleanRut;
 
-    const cleanRut = rut.replace(/\./g, "").replace(/-/g, "").toUpperCase();
+    const body = cleanRut.slice(0, -1);
+    const verifier = cleanRut.slice(-1);
+
+    const formattedBody = body
+      .split("")
+      .reverse()
+      .join("")
+      .replace(/(\d{3})/g, "$1.")
+      .split("")
+      .reverse()
+      .join("")
+      .replace(/^\./, "");
+
+    return `${formattedBody}-${verifier}`;
+  };
+  const validateRut = (formattedRut) => {
+    const cleanRut = formattedRut.replace(/[^0-9kK]/g, "").toUpperCase();
+    if (!cleanRut) return "RUT es requerido";
     if (!/^[0-9]+[0-9K]{1}$/.test(cleanRut)) return "RUT inválido";
 
     const rutBody = cleanRut.slice(0, -1);
@@ -48,19 +65,25 @@ export default function LoginScreen() {
 
     let sum = 0;
     let multiple = 2;
-
     for (let i = rutBody.length - 1; i >= 0; i--) {
       sum += parseInt(rutBody.charAt(i)) * multiple;
       multiple = multiple === 7 ? 2 : multiple + 1;
     }
 
     const result = 11 - (sum % 11);
-    let dvAwaited =
+    const dvExpected =
       result === 11 ? "0" : result === 10 ? "K" : result.toString();
 
-    if (dvAwaited !== dv) return "RUT inválido";
-
+    if (dvExpected !== dv) return "RUT inválido";
     return "";
+  };
+  const handleRutChange = (text) => {
+    const formattedRut = formatRutInput(text);
+    setRut(formattedRut);
+
+    if (submitted) {
+      setErrors({ ...errors, rut: validateRut(formattedRut) });
+    }
   };
 
   const validatePassword = (password) => {
@@ -91,16 +114,7 @@ export default function LoginScreen() {
     }
 
     try {
-      const response = await LoginUser({
-        rut,
-        password,
-      });
-
-      login({
-        full_name: response.user.full_name,
-        rut: response.user.rut,
-        groups: response.user.groups,
-      });
+      await login({ rut, password });
 
       setSnackbarMessage("Inicio de sesión exitoso");
       setSnackbarType("success");
@@ -154,14 +168,10 @@ export default function LoginScreen() {
                   label="Ingresar RUT"
                   style={style.formInput}
                   value={rut}
-                  onChangeText={(text) => {
-                    setRut(text);
-                    if (submitted) {
-                      setErrors({ ...errors, rut: validateRut(text) });
-                    }
-                  }}
+                  onChangeText={handleRutChange}
                   error={!!errors.rut}
                   left={<TextInput.Icon icon="account" />}
+                  maxLength={12}
                 />
                 {errors.rut ? (
                   <Text style={style.formError}>{errors.rut}</Text>

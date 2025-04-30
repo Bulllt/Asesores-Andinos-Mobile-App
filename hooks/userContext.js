@@ -1,47 +1,69 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GetUser, LoginUser, LogoutUser } from "../constants/api";
 
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadUser = async () => {
+    async function loadUser() {
       try {
-        const storedUser = await AsyncStorage.getItem("user");
-        if (storedUser) {
-          const parsedUser = JSON.parse(storedUser);
-          setUser(parsedUser);
+        const token = await AsyncStorage.getItem("token");
+        if (!token) {
+          await AsyncStorage.removeItem("user");
+          setIsLoading(false);
+          return;
         }
+
+        const userData = await GetUser();
+        await AsyncStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData);
       } catch (error) {
-        console.error("Failed to load user", error);
+        await AsyncStorage.multiRemove(["token", "user"]);
+        console.error(error.response?.data || error.message);
+      } finally {
+        setIsLoading(false);
       }
-    };
+    }
 
     loadUser();
   }, []);
 
-  const login = async (userData) => {
+  const login = async (credentials) => {
     try {
-      await AsyncStorage.setItem("user", JSON.stringify(userData));
-      setUser(userData);
+      const response = await LoginUser(credentials);
+      await AsyncStorage.multiSet([
+        ["token", response.token],
+        ["user", JSON.stringify(response.user)],
+      ]);
+
+      setUser(response.user);
+      return response.user;
     } catch (error) {
-      console.error("Failed to save user", error);
+      await AsyncStorage.multiRemove(["token", "user"]);
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const logout = async () => {
     try {
-      await AsyncStorage.removeItem("user");
-      setUser(null);
+      await LogoutUser();
     } catch (error) {
-      console.error("Failed to remove user", error);
+      console.error("Logout error:", error);
+    } finally {
+      await AsyncStorage.multiRemove(["token", "user"]);
+      setUser(null);
     }
   };
 
   const value = {
     user,
+    isLoading,
     login,
     logout,
   };
@@ -50,5 +72,9 @@ export function UserProvider({ children }) {
 }
 
 export function UseUser() {
-  return useContext(UserContext);
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("UseUser must be used within a UserProvider");
+  }
+  return context;
 }

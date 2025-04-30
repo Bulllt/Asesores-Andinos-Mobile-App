@@ -1,22 +1,39 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const adminCategory = "https://api.csep.dev/api/admin/category/";
-const adminInventory = "https://api.csep.dev/api/admin/inventory/";
-const adminInvInbound = "https://api.csep.dev/api/admin/inventoryOrderInbound/";
-const adminInvOutbound =
-  "https://api.csep.dev/api/admin/inventoryOrderOutbound/";
-const adminItem = "https://api.csep.dev/api/admin/item/";
-const adminOrderInbound = "https://api.csep.dev/api/admin/orderInbound/";
-const adminOrderOutbound = "https://api.csep.dev/api/admin/orderOutbound/";
+const api = axios.create({
+  baseURL: "https://api.csep.dev/api/",
+});
+
+api.interceptors.request.use(async (config) => {
+  const token = await AsyncStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Token ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401) {
+      await AsyncStorage.multiRemove(["token", "user"]);
+    }
+    return Promise.reject(error);
+  }
+);
 
 export async function LoginUser(credentials) {
-  try {
-    const response = await axios.post(
-      "https://api.csep.dev/api/auth/login/",
-      credentials
-    );
-    return response.data;
-  } catch (error) {
-    throw error.response?.data || error.message;
-  }
+  const response = await api.post("auth/login/", credentials);
+  return response.data;
+}
+
+export async function GetUser() {
+  const response = await api.get("auth/user/");
+  return response.data;
+}
+
+export async function LogoutUser() {
+  const response = await api.post("auth/logout/");
+  return response.data;
 }
