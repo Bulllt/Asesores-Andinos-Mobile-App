@@ -24,7 +24,7 @@ import style from "./style";
 import { colors } from "../../constants/colors";
 import { wp } from "../../constants/device";
 
-export default function ItemsScreen() {
+export default function EngElectricalToolsScreen() {
   const router = useRouter();
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -73,7 +73,7 @@ export default function ItemsScreen() {
         <Navbar
           onSearchChange={setSearchQuery}
           searchQuery={searchQuery}
-          activeRoute={"items"}
+          activeRoute={"engElectricalTools"}
         />
 
         <View style={style.titleContainer}>
@@ -83,7 +83,7 @@ export default function ItemsScreen() {
             size={wp(8)}
             onPress={() => router.back()}
           />
-          <Text style={style.titleText}>Lista de Productos</Text>
+          <Text style={style.titleText}>Herramientas</Text>
         </View>
 
         <View style={style.itemsLoad}>
@@ -113,7 +113,7 @@ export default function ItemsScreen() {
         <Navbar
           onSearchChange={setSearchQuery}
           searchQuery={searchQuery}
-          activeRoute={"items"}
+          activeRoute={"engElectricalTools"}
         />
 
         <View style={style.titleContainer}>
@@ -123,7 +123,7 @@ export default function ItemsScreen() {
             size={wp(8)}
             onPress={() => router.back()}
           />
-          <Text style={style.titleText}>Lista de Productos</Text>
+          <Text style={style.titleText}>Herramientas</Text>
         </View>
 
         <KeyboardAvoidingView
