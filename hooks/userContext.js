@@ -53,8 +53,7 @@ export function UserProvider({ children }) {
     } catch (error) {
       await AsyncStorage.multiRemove(["token", "user"]);
       console.error("Login error:", error);
-    } finally {
-      setIsLoading(false);
+      throw error;
     }
   };
 

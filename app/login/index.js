@@ -125,9 +125,12 @@ export default function LoginScreen() {
         router.push("home");
       }, 1000);
     } catch (error) {
-      console.log(error.message);
       setLoading(false);
-      setSnackbarMessage("Error en el inicio de sesión");
+      if (error.status == 400) {
+        setSnackbarMessage("Los datos proporcionados no son válidos");
+      } else {
+        setSnackbarMessage("Error en el inicio de sesión");
+      }
       setSnackbarType("error");
       setSnackbarVisible(true);
     }
@@ -229,13 +232,6 @@ export default function LoginScreen() {
                   ¿Olvidaste tu contraseña?{" "}
                   <TouchableOpacity>
                     <Text style={style.formRefText}>Recupérala</Text>
-                  </TouchableOpacity>
-                </Text>
-
-                <Text style={style.formText}>
-                  ¿No tienes cuenta?{" "}
-                  <TouchableOpacity>
-                    <Text style={style.formRefText}>Crear cuenta</Text>
                   </TouchableOpacity>
                 </Text>
               </View>

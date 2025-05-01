@@ -57,6 +57,9 @@ export default function EngElectricalToolsScreen() {
   const to = Math.min((page + 1) * itemsPerPage, filteredItems.length);
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
+  const IOS = Platform.OS === "ios";
+  const height = IOS ? 79 : 81;
+
   if (loading) {
     return (
       <View style={{ flex: 1 }}>
@@ -66,7 +69,12 @@ export default function EngElectricalToolsScreen() {
           style={style.itemsBackground}
         >
           <View style={style.itemsCurvedBackground}>
-            <CurvedTop color={"#F5F5F8"} width={100} height={79} depth={0.1} />
+            <CurvedTop
+              color={"#F5F5F8"}
+              width={100}
+              height={height}
+              depth={0.1}
+            />
           </View>
         </ImageBackground>
 
@@ -82,8 +90,11 @@ export default function EngElectricalToolsScreen() {
             iconColor={colors.black}
             size={wp(8)}
             onPress={() => router.back()}
+            style={style.titleIcon}
           />
-          <Text style={style.titleText}>Herramientas</Text>
+          <View style={style.titleCenterContainer}>
+            <Text style={style.titleText}>Herramientas</Text>
+          </View>
         </View>
 
         <View style={style.itemsLoad}>
@@ -106,7 +117,12 @@ export default function EngElectricalToolsScreen() {
           style={style.itemsBackground}
         >
           <View style={style.itemsCurvedBackground}>
-            <CurvedTop color={"#F5F5F8"} width={100} height={79} depth={0.1} />
+            <CurvedTop
+              color={"#F5F5F8"}
+              width={100}
+              height={height}
+              depth={0.1}
+            />
           </View>
         </ImageBackground>
 
@@ -122,8 +138,11 @@ export default function EngElectricalToolsScreen() {
             iconColor={colors.black}
             size={wp(8)}
             onPress={() => router.back()}
+            style={style.titleIcon}
           />
-          <Text style={style.titleText}>Herramientas</Text>
+          <View style={style.titleCenterContainer}>
+            <Text style={style.titleText}>Herramientas</Text>
+          </View>
         </View>
 
         <KeyboardAvoidingView

@@ -24,14 +24,25 @@ export default style = StyleSheet.create({
 
   titleContainer: {
     flexDirection: "row",
+    position: "relative",
+    alignItems: "center",
+  },
+  titleIcon: {
+    position: "absolute",
+    left: 0,
+    zIndex: 1,
+  },
+  titleCenterContainer: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   titleText: {
     fontSize: wp(8),
     fontWeight: "bold",
     color: colors.black,
-    marginLeft: wp(7),
-    marginBottom: wp(1),
+    textAlign: "center",
+    width: "100%",
   },
 
   itemsContainer: {
@@ -48,12 +59,12 @@ export default style = StyleSheet.create({
     justifyContent: "flex-end",
     width: wp(100),
     paddingRight: wp(4),
-    marginBottom: hp(0.5),
+    marginVertical: hp(0.5),
   },
 
   tableContainer: {
     marginHorizontal: wp(5),
-    marginBottom: hp(1),
+    marginBottom: hp(2),
     borderRadius: wp(3),
     overflow: "hidden",
     elevation: 3,

@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   modal: {
     backgroundColor: colors.white,
     width: wp(92),
-    height: hp(70),
+    height: IOS ? hp(70) : hp(72),
     borderRadius: wp(3),
   },
   container: {
