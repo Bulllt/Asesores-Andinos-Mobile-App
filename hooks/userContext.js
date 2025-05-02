@@ -22,6 +22,7 @@ export function UserProvider({ children }) {
         console.log(token);
         if (!token) {
           await AsyncStorage.removeItem("user");
+          setUser(null);
           setIsLoading(false);
           return;
         }
