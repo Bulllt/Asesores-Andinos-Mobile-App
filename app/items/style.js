@@ -76,7 +76,7 @@ export default style = StyleSheet.create({
     flexGrow: 0,
   },
   table: {
-    width: wp(130),
+    width: wp(150),
     backgroundColor: "white",
     borderRadius: wp(3),
   },

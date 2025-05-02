@@ -230,7 +230,7 @@ export default function ItemsScreen() {
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {item.details}
+                                {JSON.stringify(item.details)}
                               </DataTable.Cell>
                             </DataTable.Row>
                           ))}
