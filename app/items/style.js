@@ -39,7 +39,7 @@ export default style = StyleSheet.create({
   },
   titleText: {
     fontSize: wp(8),
-    fontWeight: "bold",
+    fontFamily: "Nunito-Bold",
     color: colors.black,
     textAlign: "center",
     width: "100%",

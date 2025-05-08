@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import {
-  View,
-  StyleSheet,
-  Platform,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, StyleSheet, Platform, TouchableOpacity } from "react-native";
 import { Appbar, Searchbar } from "react-native-paper";
 import { MenuModal } from "./menuModal";
 
@@ -25,11 +20,11 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.appBar}>
-        <TouchableWithoutFeedback onPress={() => router.push("home")}>
+        <TouchableOpacity onPress={() => router.push("home")}>
           <View style={styles.logoContainer}>
             <LogoWhite width="100%" height="100%" />
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
 
         <View style={styles.iconsContainer}>
           <Appbar.Action

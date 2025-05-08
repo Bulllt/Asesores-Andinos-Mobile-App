@@ -17,6 +17,7 @@ import { UseUser } from "../../hooks/userContext";
 
 import style from "./style";
 import LogoWhite from "../../assets/images/logo-white.svg";
+import { wp } from "../../constants/device";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -170,10 +171,11 @@ export default function LoginScreen() {
                   keyboardType="visible-password"
                   label="Ingresar RUT"
                   style={style.formInput}
+                  contentStyle={{ marginLeft: wp(4) }}
                   value={rut}
                   onChangeText={handleRutChange}
                   error={!!errors.rut}
-                  left={<TextInput.Icon icon="account" />}
+                  left={<TextInput.Icon icon="account" size={wp(7)} />}
                   maxLength={12}
                 />
                 {errors.rut ? (
@@ -185,6 +187,7 @@ export default function LoginScreen() {
                   label="Ingresar Contraseña"
                   secureTextEntry={!passwordVisible}
                   style={style.formInput}
+                  contentStyle={{ marginLeft: wp(4) }}
                   value={password}
                   onChangeText={(text) => {
                     setPassword(text);
@@ -196,10 +199,11 @@ export default function LoginScreen() {
                     }
                   }}
                   error={!!errors.password}
-                  left={<TextInput.Icon icon="lock" />}
+                  left={<TextInput.Icon icon="lock" size={wp(6)} />}
                   right={
                     <TextInput.Icon
                       icon={passwordVisible ? "eye" : "eye-off"}
+                      size={wp(6)}
                       onPress={() => setPasswordVisible(!passwordVisible)}
                       forceTextInputFocus={false}
                     />
@@ -251,7 +255,7 @@ export default function LoginScreen() {
             : style.snackbarError,
         ]}
       >
-        {snackbarMessage}
+        <Text style={style.snackbarText}>{snackbarMessage}</Text>
       </Snackbar>
     </View>
   );

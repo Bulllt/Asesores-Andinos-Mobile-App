@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: wp(6),
-    fontWeight: "bold",
+    fontFamily: "Nunito-Bold",
     color: colors.black,
     textAlign: "center",
   },
@@ -302,6 +302,6 @@ const styles = StyleSheet.create({
   },
   activeSubText: {
     color: colors.main,
-    fontWeight: "bold",
+    fontFamily: "Nunito-Bold",
   },
 });

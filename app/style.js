@@ -24,7 +24,7 @@ export default style = StyleSheet.create({
   welcomeTitle: {
     fontSize: wp(10),
     color: colors.white,
-    fontWeight: "bold",
+    fontFamily: "Nunito-Bold",
   },
 
   welcomeButton: {

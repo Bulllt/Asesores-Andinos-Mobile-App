@@ -53,7 +53,7 @@ export default style = StyleSheet.create({
   formTitle: {
     fontSize: wp(6),
     color: colors.main,
-    fontWeight: "bold",
+    fontFamily: "Nunito-Bold",
     textAlign: "center",
     marginVertical: hp(4),
   },
@@ -61,6 +61,8 @@ export default style = StyleSheet.create({
   formInput: {
     marginBottom: hp(3),
     height: hp(6),
+    fontSize: wp(4),
+    paddingLeft: wp(7),
   },
   formError: {
     color: colors.red,
@@ -94,7 +96,7 @@ export default style = StyleSheet.create({
   formButtonText: {
     color: colors.white,
     fontSize: wp(4),
-    fontWeight: "bold",
+    fontFamily: "Nunito-Bold",
   },
 
   formText: {
@@ -104,11 +106,15 @@ export default style = StyleSheet.create({
   },
   formRefText: {
     color: colors.main,
-    fontWeight: "bold",
+    fontFamily: "Nunito-Bold",
   },
 
   snackbar: {
     marginBottom: hp(5),
+  },
+  snackbarText: {
+    fontSize: wp(4),
+    color: colors.white,
   },
   snackbarSuccess: {
     backgroundColor: colors.main,
