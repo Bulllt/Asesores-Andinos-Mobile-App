@@ -3,12 +3,12 @@ import { wp, hp } from "../../constants/device";
 import { colors } from "../../constants/colors";
 
 export default style = StyleSheet.create({
-  homeBackground: {
+  hubBackground: {
     width: wp(100),
     height: hp(100),
     position: "absolute",
   },
-  homeCurvedBackground: {
+  hubCurvedBackground: {
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -18,39 +18,47 @@ export default style = StyleSheet.create({
 
   titleContainer: {
     flexDirection: "row",
+    position: "relative",
+    alignItems: "center",
+  },
+  titleIcon: {
+    position: "absolute",
+    left: 0,
+    zIndex: 1,
+  },
+  titleCenterContainer: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   titleText: {
     fontSize: wp(8),
     fontFamily: "Nunito-Bold",
     color: colors.black,
-    marginLeft: wp(5),
-    marginBottom: hp(3),
-  },
-
-  homeContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-  },
-
-  homeCard: {
-    height: hp(18),
-    width: wp(40),
-    marginBottom: hp(6),
-    borderRadius: wp(8),
-    backgroundColor: colors.white,
-    elevation: 3,
-  },
-  homeCardContent: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  homeCardText: {
-    fontFamily: "Nunito-Bold",
-    fontSize: wp(4),
-    color: colors.main,
-    marginTop: hp(3),
     textAlign: "center",
+    width: "100%",
+  },
+
+  hubContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: hp(5),
+  },
+
+  card: {
+    borderRadius: wp(4),
+    backgroundColor: colors.white,
+    marginBottom: hp(5),
+    width: wp(90),
+    height: hp(10),
+  },
+  cardContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  cardTitle: {
+    fontSize: wp(6),
+    color: colors.black,
+    marginLeft: wp(4),
   },
 });

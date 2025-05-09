@@ -52,7 +52,7 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
       icon: "package-variant-closed",
       route: null,
       children: [
-        { title: "Ingeniería Eléctrica", route: "engElectricalTools" },
+        { title: "Ingeniería Eléctrica", route: "engElectrical" },
         { title: "Mantenimiento Industrial", route: "3" },
         { title: "Trabajos en altura", route: "4" },
         { title: "Obras Civiles", route: "5" },
@@ -74,9 +74,20 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
     },
   ];
 
-  const isActive = (route) => activeRoute === route;
+  const isActive = (route) => {
+    if (activeRoute === route) return true;
+    if (route === "engElectrical" && activeRoute.startsWith("engElectrical")) {
+      return true;
+    }
+
+    return false;
+  };
   const hasActiveChild = (children) =>
-    children?.some((child) => child.route === activeRoute);
+    children?.some(
+      (child) =>
+        isActive(child.route) ||
+        (child.children && hasActiveChild(child.children))
+    );
 
   const handleNavigation = (route) => {
     if (route) {

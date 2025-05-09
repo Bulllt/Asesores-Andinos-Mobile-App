@@ -10,7 +10,8 @@ import { wp, hp } from "../constants/device";
 
 export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
   const [menuVisible, setMenuVisible] = useState(false);
-  const isHomeScreen = activeRoute === "home";
+  const routesWithoutSearch = ["home", "engElectrical"];
+  const shouldShowSearch = !routesWithoutSearch.includes(activeRoute);
   const router = useRouter();
 
   const toggleMenu = () => {
@@ -51,7 +52,7 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
         </View>
       </Appbar.Header>
 
-      {!isHomeScreen && (
+      {shouldShowSearch && (
         <View style={styles.searchContainer}>
           <Searchbar
             placeholder="¿Qué estás buscando?"
