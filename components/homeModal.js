@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "expo-router";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 import { Modal, Portal, Card, Button } from "react-native-paper";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -61,12 +61,7 @@ export function HomeModal({ visible, onDismiss, modalTitle, icon }) {
             mode="contained"
             onPress={onDismiss}
             rippleColor={colors.gray}
-            style={[
-              style.homeModalTitleButton,
-              modalTitle == "Mantenimiento Industrial"
-                ? { width: wp(57) }
-                : { width: wp(40) },
-            ]}
+            style={style.homeModalTitleButton}
             contentStyle={style.homeModalTitleButtonContent}
             labelStyle={style.homeModalTitleButtonText}
             icon={icon}
@@ -108,6 +103,7 @@ export function HomeModal({ visible, onDismiss, modalTitle, icon }) {
   );
 }
 
+const IOS = Platform.OS === "ios";
 const style = StyleSheet.create({
   modalContainer: {
     position: "absolute",
@@ -133,6 +129,7 @@ const style = StyleSheet.create({
     marginBottom: hp(1),
     marginLeft: wp(5),
     alignSelf: "flex-start",
+    width: IOS ? wp(60) : wp(57),
   },
   homeModalTitleButtonContent: {
     height: "100%",
@@ -145,7 +142,7 @@ const style = StyleSheet.create({
   card: {
     borderRadius: wp(4),
     backgroundColor: colors.white,
-    marginBottom: hp(5),
+    marginBottom: IOS? hp(4) : hp(5),
     width: wp(90),
     height: hp(12),
   },
