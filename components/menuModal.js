@@ -69,7 +69,7 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
     {
       title: "Escanear",
       icon: "qrcode-scan",
-      route: "9",
+      route: "barcodeScan",
       children: null,
     },
   ];

@@ -10,7 +10,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { wp } from "../../constants/device";
 import { colors } from "../../constants/colors";
 
-export default function HomeScreen() {
+export default function EngElectricalScreen() {
   const router = useRouter();
   const IOS = Platform.OS === "ios";
   const height = IOS ? 86 : 90;
