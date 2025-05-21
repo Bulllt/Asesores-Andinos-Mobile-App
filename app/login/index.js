@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter, useFocusEffect } from "expo-router";
 import {
   View,
   Text,
@@ -31,11 +32,30 @@ export default function LoginScreen() {
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarType, setSnackbarType] = useState("success");
-
   const [errors, setErrors] = useState({
     rut: "",
     password: "",
   });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const loadSavedRut = async () => {
+        try {
+          const savedRut = await AsyncStorage.getItem("rememberedRut");
+          const rememberMeStatus = await AsyncStorage.getItem("rememberMe");
+
+          if (savedRut && rememberMeStatus === "true") {
+            setRut(savedRut);
+            setRememberMe(true);
+          }
+        } catch (error) {
+          console.error("Error loading saved RUT:", error);
+        }
+      };
+
+      loadSavedRut();
+    }, [])
+  );
 
   const formatRutInput = (input) => {
     const cleanRut = input.replace(/[^0-9kK]/g, "").toUpperCase();
@@ -117,13 +137,21 @@ export default function LoginScreen() {
     try {
       await login({ rut, password });
 
+      if (rememberMe) {
+        await AsyncStorage.setItem("rememberedRut", rut);
+        await AsyncStorage.setItem("rememberMe", "true");
+      } else {
+        await AsyncStorage.removeItem("rememberedRut");
+        await AsyncStorage.removeItem("rememberMe");
+      }
+
       setSnackbarMessage("Inicio de sesión exitoso");
       setSnackbarType("success");
       setSnackbarVisible(true);
 
       setTimeout(() => {
         setLoading(false);
-        router.push("home");
+        router.replace("home");
       }, 1000);
     } catch (error) {
       setLoading(false);

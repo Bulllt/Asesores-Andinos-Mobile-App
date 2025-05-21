@@ -90,4 +90,44 @@ export default style = StyleSheet.create({
     fontSize: wp(4),
     fontFamily: "Nunito-Bold",
   },
+
+  alertContainer: {
+    borderRadius: wp(4),
+    padding: wp(4),
+  },
+  alertContainerSuccess: {
+    backgroundColor: colors.main,
+  },
+  alertContainerError: {
+    backgroundColor: colors.redError,
+  },
+  alertTitle: {
+    color: colors.white,
+    fontFamily: "Nunito-Bold",
+    fontSize: wp(5),
+  },
+  alertText: {
+    color: colors.white,
+    fontSize: wp(4),
+    marginVertical: hp(1),
+  },
+  alertButton: {
+    marginRight: wp(4),
+    backgroundColor: colors.white,
+    height: hp(6),
+    width: wp(20),
+    justifyContent: "center",
+  },
+  alertButtonContent: {
+    height: "100%",
+  },
+  alertButtonText: {
+    fontSize: wp(4.5),
+  },
+  alertButtonTextSuccess: {
+    color: colors.main,
+  },
+  alertButtonTextError: {
+    color: colors.redError,
+  },
 });

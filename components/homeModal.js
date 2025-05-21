@@ -44,7 +44,9 @@ export function HomeModal({ visible, onDismiss, modalTitle, icon }) {
       background: colors.redBackground,
     },
   ];
+
   const handleCardPress = (route) => {
+    onDismiss();
     router.push(route);
   };
 
@@ -142,7 +144,7 @@ const style = StyleSheet.create({
   card: {
     borderRadius: wp(4),
     backgroundColor: colors.white,
-    marginBottom: IOS? hp(4) : hp(5),
+    marginBottom: IOS ? hp(4) : hp(5),
     width: wp(90),
     height: hp(12),
   },

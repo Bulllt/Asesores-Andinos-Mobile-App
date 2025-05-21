@@ -3,19 +3,25 @@ import { useRouter } from "expo-router";
 import { View, StyleSheet, Platform, TouchableOpacity } from "react-native";
 import { Appbar, Searchbar } from "react-native-paper";
 import { MenuModal } from "./menuModal";
+import { UserModal } from "./userModal";
 
 import LogoWhite from "../assets/images/logo-white.svg";
 import { colors } from "../constants/colors";
 import { wp, hp } from "../constants/device";
 
 export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
-  const [menuVisible, setMenuVisible] = useState(false);
-  const routesWithoutSearch = ["home", "engElectrical"];
+  const [menuModalVisible, setMenuModalVisible] = useState(false);
+  const [userModalVisible, setUserModalVisible] = useState(false);
+  const routesWithoutSearch = ["home", "engElectrical", "myAccount"];
   const shouldShowSearch = !routesWithoutSearch.includes(activeRoute);
   const router = useRouter();
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
+  const toggleMenuModal = () => {
+    setMenuModalVisible(!menuModalVisible);
+  };
+
+  const toggleUserModal = () => {
+    setUserModalVisible(!userModalVisible);
   };
 
   return (
@@ -29,8 +35,8 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
 
         <View style={styles.iconsContainer}>
           <Appbar.Action
-            icon="account"
-            onPress={() => console.log("User pressed")}
+            icon={userModalVisible ? "close" : "account"}
+            onPress={toggleUserModal}
             color={colors.white}
             size={wp(7)}
             style={styles.icon}
@@ -43,8 +49,8 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
             style={styles.icon}
           />
           <Appbar.Action
-            icon={menuVisible ? "close" : "menu"}
-            onPress={toggleMenu}
+            icon={menuModalVisible ? "close" : "menu"}
+            onPress={toggleMenuModal}
             color={colors.white}
             size={wp(6)}
             style={styles.icon}
@@ -66,9 +72,15 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
         </View>
       )}
 
+      <UserModal
+        visible={userModalVisible}
+        onDismiss={toggleUserModal}
+        activeRoute={activeRoute}
+      />
+
       <MenuModal
-        visible={menuVisible}
-        onDismiss={toggleMenu}
+        visible={menuModalVisible}
+        onDismiss={toggleMenuModal}
         activeRoute={activeRoute}
       />
     </View>

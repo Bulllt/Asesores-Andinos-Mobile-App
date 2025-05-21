@@ -41,6 +41,11 @@ export async function GetUser() {
   return response.data;
 }
 
+export async function UpdateUser(credentials) {
+  const response = await api.patch("auth/user/", credentials);
+  return response.status;
+}
+
 export async function LogoutUser() {
   const response = await api.post("auth/logout/");
   return response.data;

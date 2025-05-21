@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity } from "react-native";
-import { IconButton } from "react-native-paper";
+import { IconButton, Dialog, Portal, Button } from "react-native-paper";
 import { useCameraPermissions, CameraView } from "expo-camera";
 
 import style from "./style";
@@ -12,6 +12,9 @@ export default function BarcodeScanScreen() {
   const router = useRouter();
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("success");
 
   useEffect(() => {
     (async () => {
@@ -19,13 +22,68 @@ export default function BarcodeScanScreen() {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ data }) => {
-    setScanned(true);
-    alert(`Código escaneado: ${data}`);
-  };
   const handleRequestPermission = async () => {
     await requestPermission();
   };
+
+  const handleBarCodeScanned = ({ data }) => {
+    setScanned(true);
+    try {
+      const parsedData = JSON.parse(data);
+      if (parsedData && parsedData.id) {
+        setAlertMessage(`Se ha validado la orden con ID: ${parsedData.id}`);
+        setAlertType("success");
+      } else {
+        setAlertMessage("QR inválido - No contiene ID");
+        setAlertType("error");
+      }
+    } catch (e) {
+      setAlertMessage("QR inválido - Formato incorrecto");
+      setAlertType("error");
+    }
+
+    setAlertVisible(true);
+  };
+
+  const Alert = () => (
+    <Portal>
+      <Dialog
+        visible={alertVisible}
+        onDismiss={() => setAlertVisible(false)}
+        style={[
+          style.alertContainer,
+          alertType === "success"
+            ? style.alertContainerSuccess
+            : style.alertContainerError,
+        ]}
+      >
+        <Dialog.Title style={style.alertTitle}>
+          {alertType === "success"
+            ? "Validación exitosa"
+            : "Error de validación"}
+        </Dialog.Title>
+        <Dialog.Content>
+          <Text style={style.alertText}>{alertMessage}</Text>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button
+            mode="contained"
+            onPress={() => setAlertVisible(false)}
+            style={style.alertButton}
+            contentStyle={style.alertButtonContent}
+            labelStyle={[
+              style.alertButtonText,
+              alertType === "success"
+                ? style.alertButtonTextSuccess
+                : style.alertButtonTextError,
+            ]}
+          >
+            Aceptar
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
+  );
 
   if (!permission?.granted) {
     return (
@@ -90,6 +148,8 @@ export default function BarcodeScanScreen() {
           <Text style={style.rescanButtonText}>Escanear Nuevamente</Text>
         </TouchableOpacity>
       )}
+
+      <Alert />
     </View>
   );
 }

@@ -15,31 +15,27 @@ export function UserProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    async function loadUser() {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        console.log(token);
-        if (!token) {
-          await AsyncStorage.removeItem("user");
-          setUser(null);
-          setIsLoading(false);
-          return;
-        }
-
-        const userData = await GetUser();
-        await AsyncStorage.setItem("user", JSON.stringify(userData));
-        setUser(userData);
-      } catch (error) {
-        await AsyncStorage.multiRemove(["token", "user"]);
-        console.error(error.response?.data || error.message);
-      } finally {
+  const loadUser = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      console.log(token);
+      if (!token) {
+        await AsyncStorage.removeItem("user");
+        setUser(null);
         setIsLoading(false);
+        return;
       }
-    }
 
-    loadUser();
-  }, []);
+      const userData = await GetUser();
+      await AsyncStorage.setItem("user", JSON.stringify(userData));
+      setUser(userData);
+    } catch (error) {
+      await AsyncStorage.multiRemove(["token", "user"]);
+      console.error(error.response?.data || error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const login = async (credentials) => {
     try {
@@ -74,6 +70,7 @@ export function UserProvider({ children }) {
 
   const value = {
     user,
+    loadUser,
     isLoading,
     login,
     logout,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "expo-router";
 import { View, Text, ImageBackground } from "react-native";
 import { Button, ActivityIndicator } from "react-native-paper";
@@ -11,7 +11,11 @@ import { colors } from "../constants/colors";
 
 export default function WelcomeScreen() {
   const router = useRouter();
-  const { user, isLoading } = UseUser();
+  const { user, loadUser, isLoading } = UseUser();
+
+  useEffect(() => {
+    loadUser();
+  }, []);
 
   if (isLoading) {
     return (

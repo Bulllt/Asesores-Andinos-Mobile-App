@@ -110,6 +110,10 @@ export default function RootLayout() {
               name="engElectricalTools/index"
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name="myAccount/index"
+              options={{ headerShown: false }}
+            />
           </Stack>
         </View>
         <StatusBar style="dark" />
