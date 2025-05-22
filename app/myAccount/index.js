@@ -171,6 +171,7 @@ export default function MyAccountScreen() {
             <View style={style.titleCenterContainer}>
               <Text style={style.titleText}>Perfil</Text>
             </View>
+            <View style={{ width: wp(8) }} />
           </View>
 
           <ScrollView

@@ -260,12 +260,12 @@ export default function LoginScreen() {
                   INICIAR SESIÓN
                 </Button>
 
-                <Text style={style.formText}>
-                  ¿Olvidaste tu contraseña?{" "}
+                <View style={style.formTextContainer}>
+                  <Text style={style.formText}>¿Olvidaste tu contraseña?</Text>
                   <TouchableOpacity>
-                    <Text style={style.formRefText}>Recupérala</Text>
+                    <Text style={style.formRefText}> Recupérala</Text>
                   </TouchableOpacity>
-                </Text>
+                </View>
               </View>
             </View>
           </TouchableWithoutFeedback>

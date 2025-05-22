@@ -99,15 +99,19 @@ export default style = StyleSheet.create({
     fontFamily: "Nunito-Bold",
   },
 
-  formText: {
-    textAlign: "center",
-    color: colors.black,
-    marginBottom: hp(1),
-  },
-  formRefText: {
-    color: colors.main,
-    fontFamily: "Nunito-Bold",
-  },
+  formTextContainer: {
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center', 
+  marginBottom: hp(1),
+},
+formText: {
+  color: colors.black,
+},
+formRefText: {
+  color: colors.main,
+  fontFamily: 'Nunito-Bold',
+},
 
   snackbar: {
     marginBottom: hp(5),

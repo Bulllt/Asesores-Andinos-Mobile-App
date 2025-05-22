@@ -63,6 +63,7 @@ export default function EngElectricalScreen() {
         <View style={style.titleCenterContainer}>
           <Text style={style.titleText}>Ingeniería Eléctrica</Text>
         </View>
+        <View style={{ width: wp(8) }} />
       </View>
 
       <View style={style.hubContainer}>

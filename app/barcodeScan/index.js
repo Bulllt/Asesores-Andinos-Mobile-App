@@ -99,6 +99,7 @@ export default function BarcodeScanScreen() {
           <View style={style.titleCenterContainer}>
             <Text style={style.titleText}>Cámara QR</Text>
           </View>
+          <View style={{ width: wp(8) }} />
         </View>
 
         <Text style={style.noPermissionText}>
@@ -124,6 +125,7 @@ export default function BarcodeScanScreen() {
         <View style={style.titleCenterContainer}>
           <Text style={style.titleText}>Cámara QR</Text>
         </View>
+        <View style={{ width: wp(8) }} />
       </View>
 
       <CameraView

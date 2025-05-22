@@ -95,6 +95,7 @@ export default function ItemsScreen() {
           <View style={style.titleCenterContainer}>
             <Text style={style.titleText}>Lista de Productos</Text>
           </View>
+          <View style={{ width: wp(8) }} />
         </View>
 
         <View style={style.itemsLoad}>
@@ -143,6 +144,7 @@ export default function ItemsScreen() {
           <View style={style.titleCenterContainer}>
             <Text style={style.titleText}>Lista de Productos</Text>
           </View>
+          <View style={{ width: wp(8) }} />
         </View>
 
         <KeyboardAvoidingView

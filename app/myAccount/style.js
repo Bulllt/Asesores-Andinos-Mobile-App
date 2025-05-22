@@ -19,19 +19,20 @@ export default style = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
     position: "relative",
-    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: hp(5),
   },
   titleIcon: {
-    position: "absolute",
-    left: 0,
     zIndex: 1,
+    width: wp(8),
   },
   titleCenterContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginHorizontal: -wp(8),
   },
+
   titleText: {
     fontSize: wp(8),
     fontFamily: "Nunito-Bold",

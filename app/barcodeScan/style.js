@@ -7,23 +7,23 @@ export default style = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-
+  
   titleContainer: {
     flexDirection: "row",
     position: "relative",
-    alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: colors.main,
     paddingVertical: hp(5),
   },
   titleIcon: {
-    position: "absolute",
-    left: 0,
     zIndex: 1,
+    width: wp(8),
   },
   titleCenterContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginHorizontal: -wp(8),
   },
   titleText: {
     fontSize: wp(8),
@@ -115,7 +115,7 @@ export default style = StyleSheet.create({
     marginRight: wp(4),
     backgroundColor: colors.white,
     height: hp(6),
-    width: wp(20),
+    width: wp(22),
     justifyContent: "center",
   },
   alertButtonContent: {
