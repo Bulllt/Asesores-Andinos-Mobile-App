@@ -6,8 +6,9 @@ export default style = StyleSheet.create({
   scanContainer: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: "#F5F5F8",
   },
-  
+
   titleContainer: {
     flexDirection: "row",
     position: "relative",
@@ -89,6 +90,61 @@ export default style = StyleSheet.create({
     color: colors.white,
     fontSize: wp(4),
     fontFamily: "Nunito-Bold",
+  },
+
+  selectOrderContainer: {
+    flex: 1,
+    marginTop: hp(5),
+    paddingHorizontal: wp(5),
+  },
+  selectTitle: {
+    fontSize: wp(7),
+    fontFamily: "Nunito-Bold",
+    marginBottom: hp(5),
+    textAlign: "center",
+    color: colors.black,
+  },
+
+  accordion: {
+    backgroundColor: "#F5F5F8",
+    height: hp(7),
+  },
+  accordionTitle: {
+    color: colors.black,
+    fontFamily: "Nunito-Bold",
+    fontSize: wp(4.5),
+  },
+  accordionScroll: {
+    maxHeight: hp(45),
+  },
+
+  listItem: {
+    paddingVertical: hp(1),
+  },
+  listItemTitle: {
+    fontFamily: "Nunito-Bold",
+    color: colors.main,
+    fontSize: wp(4),
+  },
+  listItemDescription: {
+    color: colors.gray,
+    fontSize: wp(4),
+  },
+
+  confirmButton: {
+    height: hp(6),
+    width: wp(70),
+    justifyContent: "center",
+    position: "absolute",
+    bottom: hp(10),
+    alignSelf: "center",
+  },
+  confirmButtonContent: {
+    height: "100%",
+  },
+  confirmButtonText: {
+    color: colors.white,
+    fontSize: wp(4.5),
   },
 
   alertContainer: {

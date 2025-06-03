@@ -52,18 +52,17 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
       icon: "package-variant-closed",
       route: null,
       children: [
-        { title: "Ingeniería Eléctrica", route: "engElectrical" },
-        { title: "Mantenimiento Industrial", route: "3" },
+        { title: "Ingeniería eléctrica", route: "engElectrical" },
+        { title: "Mantenimiento industrial", route: "3" },
         { title: "Trabajos en altura", route: "4" },
-        { title: "Obras Civiles", route: "5" },
+        { title: "Obras civiles", route: "5" },
         { title: "Capacitación", route: "6" },
-        { title: "Otros", route: "7" },
       ],
     },
     {
-      title: "Compras",
+      title: "Órdenes de salida",
       icon: "cart",
-      route: "8",
+      route: "outboundOrder",
       children: null,
     },
     {

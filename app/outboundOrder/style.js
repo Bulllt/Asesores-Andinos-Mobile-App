@@ -117,6 +117,11 @@ export default style = StyleSheet.create({
     color: colors.black,
   },
 
+  verifyButton: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
   paginationContainer: {
     flexDirection: "row",
     justifyContent: "center",

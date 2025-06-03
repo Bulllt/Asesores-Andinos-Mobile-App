@@ -52,11 +52,21 @@ export async function LogoutUser() {
 }
 
 export async function GetItems() {
-  try {
-    const response = await api.get("admin/item/");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching items:", error);
-    throw error;
-  }
+  const response = await api.get("admin/item/");
+  return response.data;
+}
+
+export async function GetOutboundOrders() {
+  const response = await api.get("admin/orderOutbound/");
+  return response.data;
+}
+
+export async function ValidateItemOutboundOrder(
+  outbound_order,
+  inventory_item
+) {
+  const response = await api.patch(
+    `admin/inventoryOrderOutbound/${outbound_order}/${inventory_item}/verify/`
+  );
+  return response.data;
 }

@@ -184,23 +184,30 @@ export default function ItemsScreen() {
                       <DataTable style={style.table}>
                         <DataTable.Header>
                           <DataTable.Title style={style.headerCell1}>
-                            ID
+                            <Text style={style.headerCellText}>ID</Text>
+                          </DataTable.Title>
+
+                          <DataTable.Title
+                            style={style.headerCell}
+                            numberOfLines={2}
+                          >
+                            <Text style={style.headerCellText}>
+                              Nombre del producto
+                            </Text>
                           </DataTable.Title>
 
                           <DataTable.Title style={style.headerCell}>
-                            Nombre del producto
+                            <Text style={style.headerCellText}>Categoría</Text>
                           </DataTable.Title>
 
                           <DataTable.Title style={style.headerCell}>
-                            Categoría
+                            <Text style={style.headerCellText}>
+                              Descripción
+                            </Text>
                           </DataTable.Title>
 
                           <DataTable.Title style={style.headerCell}>
-                            Descripción
-                          </DataTable.Title>
-
-                          <DataTable.Title style={style.headerCell}>
-                            Detalles
+                            <Text style={style.headerCellText}>Detalles</Text>
                           </DataTable.Title>
                         </DataTable.Header>
 
@@ -216,23 +223,31 @@ export default function ItemsScreen() {
                               }
                             >
                               <DataTable.Cell style={style.cell1}>
-                                {item.item_id}
+                                <Text style={style.cellText}>
+                                  {item.item_id}
+                                </Text>
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {item.name}
+                                <Text style={style.cellText}>{item.name}</Text>
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {item.category.join(", ")}
+                                <Text style={style.cellText}>
+                                  {item.category.join(", ")}
+                                </Text>
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {item.description}
+                                <Text style={style.cellText}>
+                                  {item.description}
+                                </Text>
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                {JSON.stringify(item.details)}
+                                <Text style={style.cellText}>
+                                  {JSON.stringify(item.details)}
+                                </Text>
                               </DataTable.Cell>
                             </DataTable.Row>
                           ))}

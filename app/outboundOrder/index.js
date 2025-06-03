@@ -9,22 +9,24 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
 } from "react-native";
 import {
   Button,
   DataTable,
   IconButton,
   ActivityIndicator,
+  Icon,
 } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
 import { Navbar } from "../../components/navbar";
-import { GetItems } from "../../constants/api";
+import { GetOutboundOrders } from "../../constants/api";
 
 import style from "./style";
 import { colors } from "../../constants/colors";
 import { wp } from "../../constants/device";
 
-export default function EngElectricalToolsScreen() {
+export default function OutboundOrderScreen() {
   const router = useRouter();
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,10 +34,10 @@ export default function EngElectricalToolsScreen() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchItems = async () => {
+    const fetchOrders = async () => {
       try {
         setLoading(true);
-        const data = await GetItems();
+        const data = await GetOutboundOrders();
         setItems(data);
       } catch (error) {
         console.error(error.message || "Error loading items");
@@ -44,12 +46,17 @@ export default function EngElectricalToolsScreen() {
       }
     };
 
-    fetchItems();
+    fetchOrders();
   }, []);
+
+  const hasUnverifiedItems = (order) => {
+    return order.items.some((item) => item.verified === false);
+  };
+
   const filteredItems = items.filter(
     (item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.item_id.toString().toLowerCase().includes(searchQuery)
+      item.order_id.toString().toLowerCase().includes(searchQuery)
   );
 
   const itemsPerPage = 8;
@@ -81,7 +88,7 @@ export default function EngElectricalToolsScreen() {
         <Navbar
           onSearchChange={setSearchQuery}
           searchQuery={searchQuery}
-          activeRoute={"engElectricalTools"}
+          activeRoute={"items"}
         />
 
         <View style={style.titleContainer}>
@@ -93,7 +100,7 @@ export default function EngElectricalToolsScreen() {
             style={style.titleIcon}
           />
           <View style={style.titleCenterContainer}>
-            <Text style={style.titleText}>Herramientas</Text>
+            <Text style={style.titleText}>Lista de Órdenes/Salida</Text>
           </View>
           <View style={{ width: wp(8) }} />
         </View>
@@ -130,7 +137,7 @@ export default function EngElectricalToolsScreen() {
         <Navbar
           onSearchChange={setSearchQuery}
           searchQuery={searchQuery}
-          activeRoute={"engElectricalTools"}
+          activeRoute={"items"}
         />
 
         <View style={style.titleContainer}>
@@ -142,7 +149,7 @@ export default function EngElectricalToolsScreen() {
             style={style.titleIcon}
           />
           <View style={style.titleCenterContainer}>
-            <Text style={style.titleText}>Herramientas</Text>
+            <Text style={style.titleText}>Lista de Órdenes/Salida</Text>
           </View>
           <View style={{ width: wp(8) }} />
         </View>
@@ -192,12 +199,8 @@ export default function EngElectricalToolsScreen() {
                             numberOfLines={2}
                           >
                             <Text style={style.headerCellText}>
-                              Nombre del producto
+                              Nombre de la orden
                             </Text>
-                          </DataTable.Title>
-
-                          <DataTable.Title style={style.headerCell}>
-                            <Text style={style.headerCellText}>Categoría</Text>
                           </DataTable.Title>
 
                           <DataTable.Title style={style.headerCell}>
@@ -207,7 +210,7 @@ export default function EngElectricalToolsScreen() {
                           </DataTable.Title>
 
                           <DataTable.Title style={style.headerCell}>
-                            <Text style={style.headerCellText}>Detalles</Text>
+                            <Text style={style.headerCellText}>Verificar</Text>
                           </DataTable.Title>
                         </DataTable.Header>
 
@@ -215,7 +218,7 @@ export default function EngElectricalToolsScreen() {
                           .slice(from, to)
                           .map((item, index, array) => (
                             <DataTable.Row
-                              key={item.item_id}
+                              key={item.order_id}
                               style={
                                 index === array.length - 1
                                   ? style.lastRow
@@ -224,7 +227,7 @@ export default function EngElectricalToolsScreen() {
                             >
                               <DataTable.Cell style={style.cell1}>
                                 <Text style={style.cellText}>
-                                  {item.item_id}
+                                  {item.order_id}
                                 </Text>
                               </DataTable.Cell>
 
@@ -234,20 +237,42 @@ export default function EngElectricalToolsScreen() {
 
                               <DataTable.Cell style={style.cell}>
                                 <Text style={style.cellText}>
-                                  {item.category.join(", ")}
-                                </Text>
-                              </DataTable.Cell>
-
-                              <DataTable.Cell style={style.cell}>
-                                <Text style={style.cellText}>
                                   {item.description}
                                 </Text>
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
-                                <Text style={style.cellText}>
-                                  {JSON.stringify(item.details)}
-                                </Text>
+                                {item.items.length === 0 ? (
+                                  <Text style={style.cellText}>
+                                    No hay items
+                                  </Text>
+                                ) : hasUnverifiedItems(item) ? (
+                                  <TouchableOpacity
+                                    style={style.verifyButton}
+                                    onPress={() =>
+                                      router.push({
+                                        pathname: "barcodeScan",
+                                        params: {
+                                          outbound_order: item.order_id,
+                                          outbound_orderName: item.name,
+                                        },
+                                      })
+                                    }
+                                  >
+                                    <Text style={style.cellText}>
+                                      Verificar items{" "}
+                                    </Text>
+                                    <Icon
+                                      source="qrcode-scan"
+                                      size={wp(7)}
+                                      color={colors.main}
+                                    />
+                                  </TouchableOpacity>
+                                ) : (
+                                  <Text style={style.cellText}>
+                                    No hay items para verificar
+                                  </Text>
+                                )}
                               </DataTable.Cell>
                             </DataTable.Row>
                           ))}

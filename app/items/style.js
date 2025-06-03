@@ -90,13 +90,13 @@ export default style = StyleSheet.create({
   },
   headerCell1: {
     justifyContent: "center",
-    maxWidth: wp(4),
+    maxWidth: wp(5),
     borderBottomWidth: 1,
     borderBottomColor: colors.gray,
   },
   cell1: {
     justifyContent: "center",
-    maxWidth: wp(4),
+    maxWidth: wp(5),
   },
   headerCell: {
     justifyContent: "center",
@@ -107,10 +107,21 @@ export default style = StyleSheet.create({
     justifyContent: "center",
   },
 
+  headerCellText: {
+    fontFamily: "Nunito-Bold",
+    fontSize: wp(5),
+    color: colors.black,
+  },
+  cellText: {
+    fontSize: wp(3),
+    color: colors.black,
+  },
+
   paginationContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: hp(1.8),
   },
   pageButton: {
     minWidth: wp(10),

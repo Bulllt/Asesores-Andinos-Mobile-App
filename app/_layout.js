@@ -99,6 +99,10 @@ export default function RootLayout() {
             <Stack.Screen name="home/index" options={{ headerShown: false }} />
             <Stack.Screen name="items/index" options={{ headerShown: false }} />
             <Stack.Screen
+              name="outboundOrder/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
               name="barcodeScan/index"
               options={{ headerShown: false }}
             />
