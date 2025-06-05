@@ -26,11 +26,6 @@ export function UserModal({ visible, onDismiss, activeRoute }) {
       route: "myAccount",
     },
     {
-      title: "Configuración",
-      icon: "cog",
-      route: "2",
-    },
-    {
       title: "Cerrar Sesión",
       icon: "logout",
       isLogout: true,
