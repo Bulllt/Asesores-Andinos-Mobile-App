@@ -52,8 +52,7 @@ export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground
-        source={require("../../assets/images/background.webp")}
-        blurRadius={4}
+        source={require("../../assets/images/background.png")}
         style={style.homeBackground}
       >
         <View style={style.homeCurvedBackground}>

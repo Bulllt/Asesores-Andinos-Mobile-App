@@ -71,8 +71,7 @@ export default function OutboundOrderScreen() {
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground
-          source={require("../../assets/images/background.webp")}
-          blurRadius={4}
+          source={require("../../assets/images/background.png")}
           style={style.itemsBackground}
         >
           <View style={style.itemsCurvedBackground}>
@@ -102,7 +101,7 @@ export default function OutboundOrderScreen() {
           <View style={style.titleCenterContainer}>
             <Text style={style.titleText}>Lista de Órdenes/Salida</Text>
           </View>
-          <View style={{ width: wp(8) }} />
+          <View style={IOS ? { width: wp(2) } : { width: wp(8) }} />
         </View>
 
         <View style={style.itemsLoad}>
@@ -120,8 +119,7 @@ export default function OutboundOrderScreen() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{ flex: 1 }}>
         <ImageBackground
-          source={require("../../assets/images/background.webp")}
-          blurRadius={4}
+          source={require("../../assets/images/background.png")}
           style={style.itemsBackground}
         >
           <View style={style.itemsCurvedBackground}>
@@ -151,7 +149,7 @@ export default function OutboundOrderScreen() {
           <View style={style.titleCenterContainer}>
             <Text style={style.titleText}>Lista de Órdenes/Salida</Text>
           </View>
-          <View style={{ width: wp(8) }} />
+          <View style={IOS ? { width: wp(2) } : { width: wp(8) }} />
         </View>
 
         <KeyboardAvoidingView

@@ -20,7 +20,7 @@ export default function WelcomeScreen() {
   if (isLoading) {
     return (
       <ImageBackground
-        source={require("../assets/images/background.webp")}
+        source={require("../assets/images/background.png")}
         blurRadius={2}
         style={style.welcomeBackground}
       >
@@ -44,8 +44,7 @@ export default function WelcomeScreen() {
 
   return (
     <ImageBackground
-      source={require("../assets/images/background.webp")}
-      blurRadius={2}
+      source={require("../assets/images/background.png")}
       style={style.welcomeBackground}
     >
       <View style={style.welcomeContainer}>

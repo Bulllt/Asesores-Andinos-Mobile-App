@@ -168,8 +168,7 @@ export default function LoginScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground
-        source={require("../../assets/images/background.webp")}
-        blurRadius={4}
+        source={require("../../assets/images/background.png")}
         style={style.loginBackground}
       >
         <View style={style.loginCurvedBackground}>

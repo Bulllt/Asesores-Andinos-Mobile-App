@@ -140,8 +140,7 @@ export default function MyAccountScreen() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{ flex: 1 }}>
         <ImageBackground
-          source={require("../../assets/images/background.webp")}
-          blurRadius={4}
+          source={require("../../assets/images/background.png")}
           style={style.accountBackground}
         >
           <View style={style.accountCurvedBackground}>
