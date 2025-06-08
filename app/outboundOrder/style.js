@@ -1,8 +1,6 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 import { wp, hp } from "../../constants/device";
 import { colors } from "../../constants/colors";
-
-const IOS = Platform.OS === "ios";
 
 export default style = StyleSheet.create({
   itemsBackground: {
@@ -92,13 +90,13 @@ export default style = StyleSheet.create({
   },
   headerCell1: {
     justifyContent: "center",
-    maxWidth: IOS ? wp(6) : wp(5),
+    maxWidth: wp(8),
     borderBottomWidth: 1,
     borderBottomColor: colors.gray,
   },
   cell1: {
     justifyContent: "center",
-    maxWidth: IOS ? wp(6) : wp(5),
+    maxWidth: wp(8),
   },
   headerCell: {
     justifyContent: "center",
