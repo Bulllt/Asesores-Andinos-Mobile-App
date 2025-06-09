@@ -18,7 +18,7 @@ export default function HomeScreen() {
 
   const cards = [
     {
-      title: "INGENIERIA ELECTRICA",
+      title: "INGENIERÍA ELÉCTRICA",
       icon: "lightning-bolt-circle",
       modalTitle: "Ingeniería Eléctrica",
     },

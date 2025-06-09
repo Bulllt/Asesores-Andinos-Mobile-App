@@ -76,7 +76,7 @@ export default function BarcodeScanScreen() {
     }
 
     if (selectedOrderItems.length === 0) {
-      showAlert("error", "La orden no posee items");
+      showAlert("error", "La orden no posee ítems");
       return;
     }
 
@@ -84,7 +84,7 @@ export default function BarcodeScanScreen() {
       (item) => item.verified === false
     );
     if (!hasUnverifiedItems) {
-      showAlert("error", "La orden no tiene items para verificar");
+      showAlert("error", "La orden no tiene ítems para verificar");
       return;
     }
 
@@ -103,14 +103,14 @@ export default function BarcodeScanScreen() {
 
         showAlert(
           "success",
-          `Se ha validado el item ${parsedData.inventory_item} de la orden: ${selectedOrderName}`
+          `Se ha validado el ítem ${parsedData.inventory_item} de la orden: ${selectedOrderName}`
         );
       }
     } catch (error) {
       if (error.status === 409) {
-        showAlert("success", "Este item ya se ha validado");
+        showAlert("success", "Este ítem ya se ha validado");
       } else if (error.status === 404) {
-        showAlert("error", "Item no encontrado en la orden seleccionada");
+        showAlert("error", "Ítem no encontrado en la orden seleccionada");
       } else {
         showAlert("error", "QR inválido - Formato incorrecto");
       }
@@ -215,7 +215,7 @@ export default function BarcodeScanScreen() {
 
         <View style={style.selectOrderContainer}>
           <Text style={style.selectTitle}>
-            Seleccionar la orden para verificar los items
+            Seleccionar la orden para verificar los ítems
           </Text>
 
           <List.Accordion
@@ -255,7 +255,7 @@ export default function BarcodeScanScreen() {
             contentStyle={style.confirmButtonContent}
             labelStyle={style.confirmButtonText}
           >
-            Confirmar seleccion
+            Confirmar selección
           </Button>
         </View>
 
@@ -299,7 +299,7 @@ export default function BarcodeScanScreen() {
           style={style.rescanButton}
           onPress={() => setScanned(false)}
         >
-          <Text style={style.rescanButtonText}>Escanear Nuevamente</Text>
+          <Text style={style.rescanButtonText}>Escanear nuevamente</Text>
         </TouchableOpacity>
       )}
 

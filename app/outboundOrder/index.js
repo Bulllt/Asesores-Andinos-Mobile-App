@@ -147,7 +147,7 @@ export default function OutboundOrderScreen() {
             style={style.titleIcon}
           />
           <View style={style.titleCenterContainer}>
-            <Text style={style.titleText}>Lista de Órdenes/Salida</Text>
+            <Text style={style.titleText}>Lista de Órdenes Salida</Text>
           </View>
           <View style={IOS ? { width: wp(2) } : { width: wp(8) }} />
         </View>

@@ -42,7 +42,7 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
       route: null,
       children: [
         { title: "Lista de productos", route: "items" },
-        { title: "Lista de categorias", route: "categories" },
+        { title: "Lista de categorías", route: "categories" },
         { title: "Lista de marcas", route: "1" },
         { title: "Imprimir QR", route: "2" },
       ],
@@ -56,7 +56,7 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
         { title: "Mantenimiento industrial", route: "3" },
         { title: "Trabajos en altura", route: "4" },
         { title: "Obras civiles", route: "5" },
-        { title: "Capacitación", route: "6" },
+        { title: "Capacitaciones", route: "6" },
       ],
     },
     {
