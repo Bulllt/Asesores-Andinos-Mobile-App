@@ -1,6 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { wp, hp } from "../../constants/device";
 import { colors } from "../../constants/colors";
+
+const IOS = Platform.OS === "ios";
 
 export default style = StyleSheet.create({
   accountBackground: {
@@ -24,7 +26,7 @@ export default style = StyleSheet.create({
   },
   titleIcon: {
     zIndex: 1,
-    width: wp(8),
+    width: IOS ? wp(14): wp(8),
   },
   titleCenterContainer: {
     flex: 1,

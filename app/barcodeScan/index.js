@@ -105,12 +105,12 @@ export default function BarcodeScanScreen() {
           "success",
           `Se ha validado el item ${parsedData.inventory_item} de la orden: ${selectedOrderName}`
         );
-      } else {
-        showAlert("error", "QR inválido - No contiene item ID");
       }
     } catch (error) {
       if (error.status === 409) {
         showAlert("success", "Este item ya se ha validado");
+      } else if (error.status === 404) {
+        showAlert("error", "Item no encontrado en la orden seleccionada");
       } else {
         showAlert("error", "QR inválido - Formato incorrecto");
       }
@@ -131,18 +131,21 @@ export default function BarcodeScanScreen() {
         onDismiss={() =>
           setAlertConfig((prev) => ({ ...prev, visible: false }))
         }
-        style={[
-          style.alertContainer,
-          alertConfig.type === "success"
-            ? style.alertContainerSuccess
-            : style.alertContainerError,
-        ]}
+        style={style.alertContainer}
       >
-        <Dialog.Title style={style.alertTitle}>
+        <Dialog.Title style={[style.alertTitle,
+          alertConfig.type === "success"
+            ? style.alertTitleSuccess
+            : style.alertTitleError
+        ]}>
           {alertConfig.type === "success" ? "Validación exitosa" : "Error"}
         </Dialog.Title>
         <Dialog.Content>
-          <Text style={style.alertText}>{alertConfig.message}</Text>
+          <Text style={[style.alertText,
+            alertConfig.type === "success"
+              ? style.alertTextSuccess
+              : style.alertTextError
+          ]}>{alertConfig.message}</Text>
         </Dialog.Content>
         <Dialog.Actions>
           <Button
@@ -150,14 +153,14 @@ export default function BarcodeScanScreen() {
             onPress={() =>
               setAlertConfig((prev) => ({ ...prev, visible: false }))
             }
-            style={style.alertButton}
-            contentStyle={style.alertButtonContent}
-            labelStyle={[
-              style.alertButtonText,
+            style={[
+              style.alertButton,
               alertConfig.type === "success"
-                ? style.alertButtonTextSuccess
-                : style.alertButtonTextError,
+                ? style.alertButtonSuccess
+                : style.alertButtonError,
             ]}
+            contentStyle={style.alertButtonContent}
+            labelStyle={style.alertButtonText}
           >
             Aceptar
           </Button>

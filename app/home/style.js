@@ -1,6 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { wp, hp } from "../../constants/device";
 import { colors } from "../../constants/colors";
+
+const IOS = Platform.OS === "ios";
 
 export default style = StyleSheet.create({
   homeBackground: {
@@ -48,7 +50,7 @@ export default style = StyleSheet.create({
   },
   homeCardText: {
     fontFamily: "Nunito-Bold",
-    fontSize: wp(4),
+    fontSize: IOS ? wp(3.6) : wp(4),
     color: colors.main,
     marginTop: hp(3),
     textAlign: "center",

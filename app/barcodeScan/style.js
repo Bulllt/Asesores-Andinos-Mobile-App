@@ -1,6 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { wp, hp } from "../../constants/device";
 import { colors } from "../../constants/colors";
+
+const IOS = Platform.OS === "ios";
 
 export default style = StyleSheet.create({
   scanContainer: {
@@ -18,7 +20,7 @@ export default style = StyleSheet.create({
   },
   titleIcon: {
     zIndex: 1,
-    width: wp(8),
+    width: IOS ? wp(17): wp(8),
   },
   titleCenterContainer: {
     flex: 1,
@@ -150,22 +152,27 @@ export default style = StyleSheet.create({
   alertContainer: {
     borderRadius: wp(4),
     padding: wp(4),
-  },
-  alertContainerSuccess: {
-    backgroundColor: colors.main,
-  },
-  alertContainerError: {
-    backgroundColor: colors.redError,
+    backgroundColor: colors.white,
   },
   alertTitle: {
-    color: colors.white,
     fontFamily: "Nunito-Bold",
     fontSize: wp(5),
   },
+  alertTitleSuccess: {
+    color: colors.main,
+  },
+  alertTitleError: {
+    color: colors.red,
+  },
   alertText: {
-    color: colors.white,
     fontSize: wp(4),
     marginVertical: hp(1),
+  },
+  alertTextSuccess: {
+    color: colors.main,
+  },
+  alertTextError: {
+    color: colors.red,
   },
   alertButton: {
     marginRight: wp(4),
@@ -174,16 +181,17 @@ export default style = StyleSheet.create({
     width: wp(22),
     justifyContent: "center",
   },
+  alertButtonSuccess: {
+    backgroundColor: colors.main,
+  },
+  alertButtonError: {
+    backgroundColor: colors.red,
+  },
   alertButtonContent: {
     height: "100%",
   },
   alertButtonText: {
     fontSize: wp(4.5),
-  },
-  alertButtonTextSuccess: {
-    color: colors.main,
-  },
-  alertButtonTextError: {
-    color: colors.redError,
+    color: colors.white,
   },
 });
