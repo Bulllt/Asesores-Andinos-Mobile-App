@@ -20,7 +20,7 @@ export default style = StyleSheet.create({
   },
   titleIcon: {
     zIndex: 1,
-    width: IOS ? wp(17): wp(8),
+    width: IOS ? wp(17) : wp(8),
   },
   titleCenterContainer: {
     flex: 1,
@@ -107,30 +107,89 @@ export default style = StyleSheet.create({
     color: colors.black,
   },
 
-  accordion: {
-    backgroundColor: "#F5F5F8",
-    height: hp(7),
-  },
-  accordionTitle: {
-    color: colors.black,
-    fontFamily: "Nunito-Bold",
-    fontSize: wp(4.5),
-  },
-  accordionScroll: {
-    maxHeight: hp(45),
+  selectOrderContainer: {
+    flex: 1,
+    width: "100%",
+    paddingHorizontal: wp(5),
   },
 
-  listItem: {
-    paddingVertical: hp(1),
+  selectTitle: {
+    fontFamily: "Nunito-Bold",
+    fontSize: wp(5),
+    color: colors.black,
+    marginVertical: hp(3),
+    textAlign: "center",
   },
-  listItemTitle: {
+
+  ordersScrollContainer: {
+    width: "100%",
+    marginBottom: hp(25.5),
+  },
+  orderItemContainer: {
+    backgroundColor: colors.white,
+    borderRadius: wp(2),
+    padding: wp(4),
+    marginBottom: hp(1.5),
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.gray,
+  },
+  orderItemSelected: {
+    borderColor: colors.main,
+    backgroundColor: colors.blueBackground,
+  },
+  orderItemContent: {
+    flex: 1,
+  },
+  orderItemTitle: {
     fontFamily: "Nunito-Bold",
     color: colors.main,
     fontSize: wp(4),
+    marginBottom: hp(0.5),
   },
-  listItemDescription: {
+  orderItemDetails: {
+    flexDirection: "row",
+    gap: wp(4),
+  },
+  orderItemDetail: {
     color: colors.gray,
+    fontSize: wp(3.8),
+  },
+  orderItemCheck: {
+    marginLeft: wp(2),
+  },
+
+  emptyStateContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: wp(10),
+    marginTop: hp(10),
+  },
+  emptyStateText: {
+    fontFamily: "Nunito-Regular",
     fontSize: wp(4),
+    color: colors.gray,
+    textAlign: "center",
+  },
+
+  paginationContainer: {
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    bottom: hp(18),
+    alignSelf: "center",
+  },
+  pageButton: {
+    minWidth: wp(10),
+    marginHorizontal: wp(0.5),
+  },
+  ellipsis: {
+    fontSize: wp(4),
+    marginHorizontal: wp(1),
+    color: colors.main,
   },
 
   confirmButton: {
@@ -138,7 +197,7 @@ export default style = StyleSheet.create({
     width: wp(70),
     justifyContent: "center",
     position: "absolute",
-    bottom: hp(10),
+    bottom: hp(8),
     alignSelf: "center",
   },
   confirmButtonContent: {

@@ -6,8 +6,7 @@ import {
   Dialog,
   Portal,
   Button,
-  List,
-  Divider,
+  ActivityIndicator,
 } from "react-native-paper";
 import { useCameraPermissions, CameraView } from "expo-camera";
 import {
@@ -16,11 +15,13 @@ import {
 } from "../../constants/api";
 
 import style from "./style";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { wp, hp } from "../../constants/device";
 import { colors } from "../../constants/colors";
 
 export default function BarcodeScanScreen() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState(false);
   const [alertConfig, setAlertConfig] = useState({
@@ -42,10 +43,22 @@ export default function BarcodeScanScreen() {
 
       const fetchOrders = async () => {
         try {
+          setIsLoading(true);
           const data = await GetOutboundOrders();
-          setOrders(data);
+
+          const filteredOrders = data
+            .filter((order) => {
+              if (order.items.length === 0) return false;
+
+              return order.items.some((item) => item.verified === false);
+            })
+            .sort((a, b) => a.order_id - b.order_id);
+
+          setOrders(filteredOrders);
         } catch (error) {
           console.error(error.message || "Error loading items");
+        } finally {
+          setIsLoading(false);
         }
       };
 
@@ -62,6 +75,12 @@ export default function BarcodeScanScreen() {
   const handleRequestPermission = async () => {
     await requestPermission();
   };
+
+  const [page, setPage] = useState(0);
+  const itemsPerPage = 20;
+  const from = page * itemsPerPage;
+  const to = Math.min((page + 1) * itemsPerPage, orders.length);
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
 
   const handleOrderSelect = (orderId, orderName, orderItems) => {
     setExpanded(false);
@@ -133,19 +152,27 @@ export default function BarcodeScanScreen() {
         }
         style={style.alertContainer}
       >
-        <Dialog.Title style={[style.alertTitle,
-          alertConfig.type === "success"
-            ? style.alertTitleSuccess
-            : style.alertTitleError
-        ]}>
+        <Dialog.Title
+          style={[
+            style.alertTitle,
+            alertConfig.type === "success"
+              ? style.alertTitleSuccess
+              : style.alertTitleError,
+          ]}
+        >
           {alertConfig.type === "success" ? "Validación exitosa" : "Error"}
         </Dialog.Title>
         <Dialog.Content>
-          <Text style={[style.alertText,
-            alertConfig.type === "success"
-              ? style.alertTextSuccess
-              : style.alertTextError
-          ]}>{alertConfig.message}</Text>
+          <Text
+            style={[
+              style.alertText,
+              alertConfig.type === "success"
+                ? style.alertTextSuccess
+                : style.alertTextError,
+            ]}
+          >
+            {alertConfig.message}
+          </Text>
         </Dialog.Content>
         <Dialog.Actions>
           <Button
@@ -197,6 +224,32 @@ export default function BarcodeScanScreen() {
   }
 
   if (!outbound_order && (!selectedOrderID || !orderConfirmed)) {
+    if (isLoading) {
+      return (
+        <View style={style.scanContainer}>
+          <View style={[style.titleContainer, { marginBottom: hp(30) }]}>
+            <IconButton
+              icon="arrow-left"
+              iconColor={colors.white}
+              size={wp(8)}
+              onPress={() => router.back()}
+              style={style.titleIcon}
+            />
+            <View style={style.titleCenterContainer}>
+              <Text style={style.titleText}>Cámara QR</Text>
+            </View>
+            <View style={{ width: wp(8) }} />
+          </View>
+
+          <ActivityIndicator
+            animating={true}
+            color={colors.main}
+            size={wp(20)}
+          />
+        </View>
+      );
+    }
+
     return (
       <View style={style.scanContainer}>
         <View style={style.titleContainer}>
@@ -218,45 +271,124 @@ export default function BarcodeScanScreen() {
             Seleccionar la orden para verificar los ítems
           </Text>
 
-          <List.Accordion
-            title={
-              selectedOrderID
-                ? `Orden: ${selectedOrderName}`
-                : "Selecciona una orden"
-            }
-            expanded={expanded}
-            onPress={() => setExpanded(!expanded)}
-            style={style.accordion}
-            titleStyle={style.accordionTitle}
-          >
-            <ScrollView style={style.accordionScroll}>
-              {orders.map((order) => (
-                <React.Fragment key={order.order_id}>
-                  <List.Item
-                    title={`${order.name}`}
-                    description={`ID: ${order.order_id} • Items: ${order.items.length}`}
+          {orders.length === 0 ? (
+            <View style={style.emptyStateContainer}>
+              <MaterialCommunityIcons
+                name="clipboard-list-outline"
+                size={wp(20)}
+                color={colors.main}
+              />
+              <Text style={style.emptyStateText}>
+                No hay órdenes con items para verificar
+              </Text>
+            </View>
+          ) : (
+            <>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={style.ordersScrollContainer}
+              >
+                {orders.slice(from, to).map((order) => (
+                  <TouchableOpacity
+                    key={order.order_id}
+                    style={[
+                      style.orderItemContainer,
+                      selectedOrderID === order.order_id &&
+                        style.orderItemSelected,
+                    ]}
                     onPress={() =>
                       handleOrderSelect(order.order_id, order.name, order.items)
                     }
-                    style={style.listItem}
-                    titleStyle={style.listItemTitle}
-                    descriptionStyle={style.listItemDescription}
-                  />
-                  <Divider />
-                </React.Fragment>
-              ))}
-            </ScrollView>
-          </List.Accordion>
+                  >
+                    <View style={style.orderItemContent}>
+                      <Text style={style.orderItemTitle}>{order.name}</Text>
+                      <View style={style.orderItemDetails}>
+                        <Text style={style.orderItemDetail}>
+                          ID: {order.order_id}
+                        </Text>
+                        <Text style={style.orderItemDetail}>
+                          Items: {order.items.length}
+                        </Text>
+                      </View>
+                    </View>
+                    {selectedOrderID === order.order_id && (
+                      <MaterialCommunityIcons
+                        name="check-circle"
+                        size={wp(6)}
+                        color={colors.blue}
+                        style={style.orderItemCheck}
+                      />
+                    )}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
 
-          <Button
-            mode="contained"
-            onPress={handleConfirmOrder}
-            style={style.confirmButton}
-            contentStyle={style.confirmButtonContent}
-            labelStyle={style.confirmButtonText}
-          >
-            Confirmar selección
-          </Button>
+              {totalPages > 1 && (
+                <View style={style.paginationContainer}>
+                  <Button
+                    mode="text"
+                    onPress={() => setPage(Math.max(0, page - 1))}
+                    disabled={page === 0}
+                    icon="chevron-left"
+                  >
+                    Anterior
+                  </Button>
+
+                  <Button
+                    mode={page === 0 ? "contained" : "text"}
+                    onPress={() => setPage(0)}
+                    style={style.pageButton}
+                  >
+                    1
+                  </Button>
+
+                  {page > 1 && <Text style={style.ellipsis}>...</Text>}
+                  {page > 0 && page < totalPages - 1 && (
+                    <Button
+                      mode="contained"
+                      onPress={() => setPage(page)}
+                      style={style.pageButton}
+                    >
+                      {page + 1}
+                    </Button>
+                  )}
+                  {page < totalPages - 2 && (
+                    <Text style={style.ellipsis}>...</Text>
+                  )}
+
+                  {totalPages > 1 && (
+                    <Button
+                      mode={page === totalPages - 1 ? "contained" : "text"}
+                      onPress={() => setPage(totalPages - 1)}
+                      style={style.pageButton}
+                    >
+                      {totalPages}
+                    </Button>
+                  )}
+
+                  <Button
+                    mode="text"
+                    onPress={() => setPage(Math.min(totalPages - 1, page + 1))}
+                    disabled={page >= totalPages - 1}
+                    icon="chevron-right"
+                    contentStyle={{ flexDirection: "row-reverse" }}
+                  >
+                    Siguiente
+                  </Button>
+                </View>
+              )}
+
+              <Button
+                mode="contained"
+                onPress={handleConfirmOrder}
+                style={style.confirmButton}
+                contentStyle={style.confirmButtonContent}
+                labelStyle={style.confirmButtonText}
+              >
+                Confirmar selección
+              </Button>
+            </>
+          )}
         </View>
 
         <Alert />
