@@ -53,8 +53,8 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
       route: null,
       children: [
         { title: "Ingeniería eléctrica", route: "engElectrical" },
-        { title: "Mantenimiento industrial", route: "3" },
-        { title: "Trabajos en altura", route: "4" },
+        { title: "Mantenimiento industrial", route: "indMaintenance" },
+        { title: "Trabajos en altura", route: "workAtHeight" },
         { title: "Obras civiles", route: "5" },
         { title: "Capacitaciones", route: "6" },
       ],

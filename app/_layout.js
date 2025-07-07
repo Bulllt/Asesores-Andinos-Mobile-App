@@ -118,6 +118,14 @@ export default function RootLayout() {
               name="myAccount/index"
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name="indMaintenance/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="indMaintenanceTools/index"
+              options={{ headerShown: false }}
+            />
           </Stack>
         </View>
         <StatusBar style="dark" />
