@@ -12,7 +12,7 @@ import { wp, hp } from "../constants/device";
 export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
   const [menuModalVisible, setMenuModalVisible] = useState(false);
   const [userModalVisible, setUserModalVisible] = useState(false);
-  const routesWithoutSearch = ["home", "engElectrical", "myAccount"];
+  const routesWithoutSearch = ["home", "myAccount"];
   const shouldShowSearch = !routesWithoutSearch.includes(activeRoute);
   const router = useRouter();
 
@@ -39,13 +39,6 @@ export function Navbar({ onSearchChange, searchQuery, activeRoute }) {
             onPress={toggleUserModal}
             color={colors.white}
             size={wp(7)}
-            style={styles.icon}
-          />
-          <Appbar.Action
-            icon="bell"
-            onPress={() => console.log("Notifications pressed")}
-            color={colors.white}
-            size={wp(6)}
             style={styles.icon}
           />
           <Appbar.Action

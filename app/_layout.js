@@ -107,25 +107,18 @@ export default function RootLayout() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="engElectrical/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="engElectricalTools/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
               name="myAccount/index"
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="indMaintenance/index"
+              name="categories/index"
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="indMaintenanceTools/index"
+              name="brands/index"
               options={{ headerShown: false }}
             />
+            <Stack.Screen name="loan/index" options={{ headerShown: false }} />
           </Stack>
         </View>
         <StatusBar style="dark" />

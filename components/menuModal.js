@@ -43,21 +43,14 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
       children: [
         { title: "Lista de productos", route: "items" },
         { title: "Lista de categorías", route: "categories" },
-        { title: "Lista de marcas", route: "1" },
-        { title: "Imprimir QR", route: "2" },
+        { title: "Lista de marcas", route: "brands" },
       ],
     },
     {
-      title: "Inventario",
-      icon: "package-variant-closed",
-      route: null,
-      children: [
-        { title: "Ingeniería eléctrica", route: "engElectrical" },
-        { title: "Mantenimiento industrial", route: "indMaintenance" },
-        { title: "Trabajos en altura", route: "workAtHeight" },
-        { title: "Obras civiles", route: "5" },
-        { title: "Capacitaciones", route: "6" },
-      ],
+      title: "Préstamos",
+      icon: "handshake-outline",
+      route: "loan",
+      children: null,
     },
     {
       title: "Órdenes de salida",
@@ -74,19 +67,16 @@ export function MenuModal({ visible, onDismiss, activeRoute }) {
   ];
 
   const isActive = (route) => {
-    if (activeRoute === route) return true;
-    if (route === "engElectrical" && activeRoute.startsWith("engElectrical")) {
-      return true;
-    }
+    if (!route) return false;
 
-    return false;
+    // Exact match or starts with route (for nested routes)
+    return activeRoute === route || activeRoute?.startsWith(`${route}/`);
   };
-  const hasActiveChild = (children) =>
-    children?.some(
-      (child) =>
-        isActive(child.route) ||
-        (child.children && hasActiveChild(child.children))
-    );
+
+  const hasActiveChild = (children) => {
+    if (!children) return false;
+    return children.some((child) => isActive(child.route));
+  };
 
   const handleNavigation = (route) => {
     if (route) {

@@ -87,7 +87,7 @@ export default function OutboundOrderScreen() {
         <Navbar
           onSearchChange={setSearchQuery}
           searchQuery={searchQuery}
-          activeRoute={"items"}
+          activeRoute={"outboundOrder"}
         />
 
         <View style={style.titleContainer}>
@@ -135,7 +135,7 @@ export default function OutboundOrderScreen() {
         <Navbar
           onSearchChange={setSearchQuery}
           searchQuery={searchQuery}
-          activeRoute={"items"}
+          activeRoute={"outboundOrder"}
         />
 
         <View style={style.titleContainer}>

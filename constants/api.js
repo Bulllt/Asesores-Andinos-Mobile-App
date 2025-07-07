@@ -56,6 +56,21 @@ export async function GetItems() {
   return response.data;
 }
 
+export async function GetCategories() {
+  const response = await api.get("admin/category/");
+  return response.data;
+}
+
+export async function GetBrands() {
+  const response = await api.get("admin/brand/");
+  return response.data;
+}
+
+export async function GetLoans() {
+  const response = await api.get("admin/employeeItemLoan/");
+  return response.data;
+}
+
 export async function GetOutboundOrders() {
   const response = await api.get("admin/orderOutbound/");
   return response.data;

@@ -31,7 +31,7 @@ export default style = StyleSheet.create({
   },
   titleIcon: {
     zIndex: 1,
-    width: IOS ? wp(14): wp(8),
+    width: IOS ? wp(14) : wp(8),
   },
   titleCenterContainer: {
     flex: 1,
@@ -57,14 +57,6 @@ export default style = StyleSheet.create({
     marginTop: hp(20),
   },
 
-  actionsContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    width: wp(100),
-    paddingRight: wp(4),
-    marginVertical: hp(0.5),
-  },
-
   tableContainer: {
     marginHorizontal: wp(5),
     marginBottom: hp(2),
@@ -79,7 +71,7 @@ export default style = StyleSheet.create({
     flexGrow: 0,
   },
   table: {
-    width: wp(150),
+    width: wp(90),
     backgroundColor: "white",
     borderRadius: wp(3),
   },

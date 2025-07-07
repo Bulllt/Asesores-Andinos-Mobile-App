@@ -18,13 +18,13 @@ import {
 } from "react-native-paper";
 import { CurvedTop } from "../../components/curvedTop";
 import { Navbar } from "../../components/navbar";
-import { GetItems } from "../../constants/api";
+import { GetBrands } from "../../constants/api";
 
 import style from "./style";
 import { colors } from "../../constants/colors";
 import { wp } from "../../constants/device";
 
-export default function EngElectricalToolsScreen() {
+export default function CategoriesScreen() {
   const router = useRouter();
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,7 +35,7 @@ export default function EngElectricalToolsScreen() {
     const fetchItems = async () => {
       try {
         setLoading(true);
-        const data = await GetItems();
+        const data = await GetBrands();
         setItems(data);
       } catch (error) {
         console.error(error.message || "Error loading items");
@@ -49,7 +49,7 @@ export default function EngElectricalToolsScreen() {
   const filteredItems = items.filter(
     (item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.item_id.toString().toLowerCase().includes(searchQuery)
+      item.brand_id.toString().toLowerCase().includes(searchQuery)
   );
 
   const itemsPerPage = 8;
@@ -80,7 +80,7 @@ export default function EngElectricalToolsScreen() {
         <Navbar
           onSearchChange={setSearchQuery}
           searchQuery={searchQuery}
-          activeRoute={"indMaintenanceTools"}
+          activeRoute={"brands"}
         />
 
         <View style={style.titleContainer}>
@@ -92,7 +92,7 @@ export default function EngElectricalToolsScreen() {
             style={style.titleIcon}
           />
           <View style={style.titleCenterContainer}>
-            <Text style={style.titleText}>Herramientas</Text>
+            <Text style={style.titleText}>Lista de Marcas</Text>
           </View>
           <View style={{ width: wp(8) }} />
         </View>
@@ -128,7 +128,7 @@ export default function EngElectricalToolsScreen() {
         <Navbar
           onSearchChange={setSearchQuery}
           searchQuery={searchQuery}
-          activeRoute={"indMaintenanceTools"}
+          activeRoute={"brands"}
         />
 
         <View style={style.titleContainer}>
@@ -140,7 +140,7 @@ export default function EngElectricalToolsScreen() {
             style={style.titleIcon}
           />
           <View style={style.titleCenterContainer}>
-            <Text style={style.titleText}>Herramientas</Text>
+            <Text style={style.titleText}>Lista de Marcas</Text>
           </View>
           <View style={{ width: wp(8) }} />
         </View>
@@ -155,27 +155,6 @@ export default function EngElectricalToolsScreen() {
           >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={style.itemsContainer}>
-                <View style={style.actionsContainer}>
-                  <IconButton
-                    icon="file-pdf-box"
-                    iconColor={colors.red}
-                    size={wp(6)}
-                    onPress={() => {}}
-                  />
-                  <IconButton
-                    icon="file-excel"
-                    iconColor={colors.green}
-                    size={wp(6)}
-                    onPress={() => {}}
-                  />
-                  <IconButton
-                    icon="printer"
-                    iconColor={colors.black}
-                    size={wp(6)}
-                    onPress={() => {}}
-                  />
-                </View>
-
                 <View style={style.tableContainer}>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <TouchableWithoutFeedback>
@@ -185,27 +164,8 @@ export default function EngElectricalToolsScreen() {
                             <Text style={style.headerCellText}>ID</Text>
                           </DataTable.Title>
 
-                          <DataTable.Title
-                            style={style.headerCell}
-                            numberOfLines={2}
-                          >
-                            <Text style={style.headerCellText}>
-                              Nombre del producto
-                            </Text>
-                          </DataTable.Title>
-
                           <DataTable.Title style={style.headerCell}>
-                            <Text style={style.headerCellText}>Categoría</Text>
-                          </DataTable.Title>
-
-                          <DataTable.Title style={style.headerCell}>
-                            <Text style={style.headerCellText}>
-                              Descripción
-                            </Text>
-                          </DataTable.Title>
-
-                          <DataTable.Title style={style.headerCell}>
-                            <Text style={style.headerCellText}>Detalles</Text>
+                            <Text style={style.headerCellText}>Nombre</Text>
                           </DataTable.Title>
                         </DataTable.Header>
 
@@ -213,7 +173,7 @@ export default function EngElectricalToolsScreen() {
                           .slice(from, to)
                           .map((item, index, array) => (
                             <DataTable.Row
-                              key={item.item_id}
+                              key={item.brand_id}
                               style={
                                 index === array.length - 1
                                   ? style.lastRow
@@ -222,30 +182,12 @@ export default function EngElectricalToolsScreen() {
                             >
                               <DataTable.Cell style={style.cell1}>
                                 <Text style={style.cellText}>
-                                  {item.item_id}
+                                  {item.brand_id}
                                 </Text>
                               </DataTable.Cell>
 
                               <DataTable.Cell style={style.cell}>
                                 <Text style={style.cellText}>{item.name}</Text>
-                              </DataTable.Cell>
-
-                              <DataTable.Cell style={style.cell}>
-                                <Text style={style.cellText}>
-                                  {item.category.join(", ")}
-                                </Text>
-                              </DataTable.Cell>
-
-                              <DataTable.Cell style={style.cell}>
-                                <Text style={style.cellText}>
-                                  {item.description}
-                                </Text>
-                              </DataTable.Cell>
-
-                              <DataTable.Cell style={style.cell}>
-                                <Text style={style.cellText}>
-                                  {JSON.stringify(item.details)}
-                                </Text>
                               </DataTable.Cell>
                             </DataTable.Row>
                           ))}

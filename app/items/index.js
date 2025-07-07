@@ -155,27 +155,6 @@ export default function ItemsScreen() {
           >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={style.itemsContainer}>
-                <View style={style.actionsContainer}>
-                  <IconButton
-                    icon="file-pdf-box"
-                    iconColor={colors.red}
-                    size={wp(6)}
-                    onPress={() => {}}
-                  />
-                  <IconButton
-                    icon="file-excel"
-                    iconColor={colors.green}
-                    size={wp(6)}
-                    onPress={() => {}}
-                  />
-                  <IconButton
-                    icon="printer"
-                    iconColor={colors.black}
-                    size={wp(6)}
-                    onPress={() => {}}
-                  />
-                </View>
-
                 <View style={style.tableContainer}>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <TouchableWithoutFeedback>
